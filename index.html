@@ -1,0 +1,1086 @@
+<!doctype html><html lang="ru"><head>
+<script src="./demo-data.js"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rafi — управление площадками и событиями</title><link rel="icon" type="image/x-icon" href="./rafi-monogram.svg?v=16"><link rel="apple-touch-icon" href="./rafi_app_icon_192.png"><meta name="theme-color" content="#F7F8FA"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--bg:#f5f7fc;--surface:#fff;--soft:#f0f4fa;--text:#1d2a3b;--muted:#7c899a;--border:#e3e9f2;--accent:#536fdf;--accent2:#e9edff;--danger:#c04d57;--good:#23856b;color:var(--text);background:var(--bg)}[data-theme="dark"]{--bg:#121822;--surface:#1c2533;--soft:#263244;--text:#edf2fa;--muted:#a0aec1;--border:#344255;--accent:#91a6ff;--accent2:#2e3c62;--danger:#fa8e98;--good:#6fd6b4;color-scheme:dark}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}.app{max-width:1260px;margin:auto;padding:25px 24px 55px}.top,.heading,.row,.monthnav,.subhead,.actions,.tabs{display:flex;align-items:center;justify-content:space-between;gap:12px}.top{border-bottom:1px solid var(--border);padding-bottom:19px;flex-wrap:wrap}.brand{font-size:18px;font-weight:800;letter-spacing:-.4px}.muted,.hint{color:var(--muted);font-size:13px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.topright select{max-width:160px}.nav{display:flex;gap:5px;flex-wrap:wrap;margin:18px 0}.nav button,.ghost{border:0;background:transparent;color:var(--muted);padding:10px 13px;border-radius:10px}.nav button.active{color:var(--accent);background:var(--accent2);font-weight:700}.heading{margin:19px 0 22px}h1{font-size:27px;letter-spacing:-.6px;margin:0}h2{font-size:18px;margin:0}h3{font-size:15px;margin:0}.primary{background:var(--accent);color:white;border:0;border-radius:10px;padding:11px 16px;font-weight:700}.secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 14px}.layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,1fr);gap:18px}.panel{background:var(--surface);border:1px solid var(--border);border-radius:17px;padding:23px}.monthnav{margin-bottom:17px}.monthnav button{background:none;border:0;color:var(--muted);font-size:24px;padding:4px 10px}.monthname{font-size:17px;font-weight:750;text-transform:capitalize}.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.weekday{text-align:center;color:var(--muted);font-size:12px;padding:12px 0}.date{min-height:73px;background:var(--surface);border:1px solid var(--border);border-radius:9px;display:flex;flex-direction:column;align-items:flex-start;padding:9px;gap:9px;color:var(--text)}.date:hover{background:var(--soft)}.date.selected{border:2px solid var(--accent);background:var(--accent2)}.date.empty{border:0}.number{font-size:13px}.dots{display:flex;gap:4px;flex-wrap:wrap}.dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}.dot.pre{background:#d7a35a}.subhead{margin-bottom:17px}.booking{width:100%;background:var(--soft);border:1px solid var(--border);color:var(--text);border-radius:11px;text-align:left;padding:13px;margin-bottom:9px}.booking:hover{border-color:var(--accent)}.bookingtop{display:flex;justify-content:space-between;align-items:center;gap:8px}.booking p{font-size:13px;margin:6px 0 0;color:var(--muted)}.pill{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:4px 8px;white-space:nowrap}.emptymsg{color:var(--muted);font-size:14px;padding:22px 4px}.modalback{position:fixed;inset:0;background:#101722a6;display:flex;justify-content:center;align-items:center;padding:15px;z-index:10}.modal{background:var(--surface);border-radius:17px;width:min(100%,570px);padding:25px;max-height:94vh;overflow:auto;box-shadow:0 24px 80px #0003}.modal.wide{width:min(100%,740px)}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px}.x{border:0;background:transparent;color:var(--muted);font-size:25px}label{display:block;font-size:13px;font-weight:650;margin:13px 0 6px}input,select,textarea{width:100%;border:1px solid var(--border);border-radius:9px;background:var(--surface);padding:10px;color:var(--text)}input:focus,select:focus,textarea:focus{outline:2px solid var(--accent)}.pair,.triple{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.triple{grid-template-columns:repeat(3,minmax(0,1fr))}.actions{justify-content:flex-end;margin-top:21px;flex-wrap:wrap}.alert{font-size:13px;background:var(--soft);color:var(--danger);border-radius:8px;padding:11px;margin-top:13px}.detailrow{display:flex;justify-content:space-between;gap:15px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}.detailrow span:first-child{color:var(--muted)}.notice{font-size:13px;background:var(--accent2);padding:12px;border-radius:10px;margin:13px 0}.footer{font-size:12px;color:var(--muted);margin-top:18px}.hidden{display:none!important}.catalogrow{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);padding:13px 0}.catalogrow:last-child{border:0}.price{font-weight:750;white-space:nowrap}.small{font-size:12px}.stack{display:grid;gap:12px}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:20px 0 8px}.sectionhead:first-child{margin-top:0}.total{padding:17px;background:var(--accent2);border-radius:12px;display:flex;justify-content:space-between;align-items:center;font-weight:800}.layoutmap{position:relative;aspect-ratio:1.85;min-height:230px;background:var(--soft);border:2px solid var(--border);border-radius:15px;overflow:hidden;background-image:linear-gradient(to right,var(--border) 1px,transparent 1px),linear-gradient(to bottom,var(--border) 1px,transparent 1px);background-size:10% 10%}.zone{position:absolute;background:var(--accent2);border:2px solid var(--accent);border-radius:9px;color:var(--text);font-size:13px;font-weight:650;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;overflow:hidden}.zone.busy{border-color:#d7a35a;background:color-mix(in srgb,#d7a35a 22%,var(--surface))}.zone:hover{filter:brightness(.96)}.legend{display:flex;gap:15px;flex-wrap:wrap;margin:13px 0;color:var(--muted);font-size:12px}.badge-dot{display:inline-block;width:9px;height:9px;background:var(--accent);border-radius:50%;margin-right:5px}.badge-dot.busy{background:#d7a35a}.searchgrid{display:grid;grid-template-columns:1fr 1fr 180px auto;gap:9px;align-items:end}.subtle{background:var(--soft);padding:12px;border-radius:10px}.tag{font-size:11px;color:var(--accent);background:var(--accent2);padding:4px 9px;border-radius:20px}.devonly{display:none}body.developer .devonly{display:inline-flex}.split{display:grid;grid-template-columns:1fr 1fr;gap:15px}.linkbutton{border:0;background:transparent;color:var(--accent);padding:6px;font-weight:650}.stat{font-size:12px;color:var(--muted)}@media(max-width:820px){.app{padding:17px 13px}.layout,.split{grid-template-columns:1fr}.panel{padding:16px}.date{min-height:51px;padding:6px}.searchgrid{grid-template-columns:1fr 1fr}.heading{margin:16px 0}h1{font-size:23px}.topright{width:100%}.topright select{flex:1}.modal{padding:18px}.layoutmap{min-height:190px}}
+
+/* Редизайн 0.3 — адаптивный интерфейс */
+:root{--bg:#f6f4ff;--surface:#fff;--soft:#f4f1ff;--text:#211c3c;--muted:#88839e;--border:#ebe8f5;--accent:#6650ed;--accent2:#eeeaff;--good:#4b8a75;--sidebar:#1e193e;--sidebar-text:#b7addd;--pre:#d7ac55}
+[data-theme="dark"]{--bg:#151328;--surface:#24213b;--soft:#302c4a;--text:#f6f3ff;--muted:#ada7c6;--border:#3c3658;--accent:#a597ff;--accent2:#39315d;--sidebar:#111025;--sidebar-text:#c0b8e6;color-scheme:dark}
+body{background:var(--bg)}.app-shell{display:flex;min-height:100vh}.sidebar{width:225px;flex:none;background:var(--sidebar);color:#fff;display:flex;flex-direction:column;padding:30px 15px;position:sticky;top:0;height:100vh}.sidebar-brand{padding:5px 9px 25px}.sidebar-brand .brand{font-size:21px;line-height:1.05}.sidebar-caption{font-size:10px;color:var(--sidebar-text);margin-top:8px}.sidebar .nav{display:flex;flex-direction:column;gap:7px;margin:0}.sidebar .nav button{color:var(--sidebar-text);width:100%;display:flex;align-items:center;text-align:left;gap:10px;padding:12px 11px;border-radius:11px;font-size:13px}.sidebar .nav button.active{background:#fff;color:#24203d}.navdot{width:7px;height:7px;border-radius:50%;background:#7864e5;flex:none}.sidebar .nav button.active .navdot{background:#f27e73}.sidebar-foot{margin-top:auto;color:var(--sidebar-text);font-size:12px;padding:10px}.sidebar-foot small{font-size:10px;opacity:.8}.workspace{flex:1;min-width:0;max-width:1600px;margin:auto;padding:24px 34px 45px}.top{padding:0 0 18px;border:0;display:flex;flex-wrap:nowrap}.global-search{flex:1;max-width:580px}.global-search input{border-radius:22px;background:var(--surface);padding:12px 18px}.topright{flex-wrap:nowrap}.topright select{max-width:160px;border-radius:22px;font-size:12px}.topright #role{max-width:175px}.topright #theme{border-radius:50%;width:42px;height:42px;padding:0}.top-add{white-space:nowrap;border-radius:22px}.heading{margin:18px 0 20px}.heading h1{font-size:29px}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-bottom:19px;max-width:650px}.metric{background:var(--surface);border-radius:15px;padding:17px 20px;display:flex;flex-direction:column;gap:8px}.metric span{color:var(--muted);font-size:12px}.metric strong{font-size:25px}.layout{grid-template-columns:minmax(0,1.55fr) minmax(295px,.85fr);gap:18px;align-items:start}.panel{border:0;border-radius:19px;padding:23px}.calendar-panel{min-width:0}.calendar{gap:5px}.date{min-height:74px;background:var(--soft);border:1px solid transparent;border-radius:10px;padding:8px;gap:5px}.date:hover{border-color:var(--accent)}.date.selected{background:#211b49;color:#fff;border-color:#211b49;box-shadow:inset 0 -3px 0 #e4c661}.date.today:not(.selected){border:1px solid #9e91ef}.date.empty{background:transparent}.weekday{padding:10px 0 14px}.event-chip{display:block;font-size:9px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:5px;padding:3px 4px;background:#e4ddff;color:#5341b9}.event-chip.pre{background:#fff0cf;color:#8b6a1d}.date.selected .event-chip{background:#5b4e92;color:#fff}.dots{width:100%;display:flex;flex-direction:column;gap:3px}.event-more{font-size:10px;color:var(--muted)}.monthnav{margin-bottom:18px}.monthnav button{width:34px;height:34px;border:1px solid var(--border);border-radius:50%;font-size:20px;display:grid;place-items:center;padding:0}.legend{margin:18px 0 0}.badge-dot{background:#bdb3fa}.badge-dot.busy{background:#e4c661}.badge-dot.current{background:#211b49}.day-panel{min-height:420px}.subhead{align-items:flex-start}.subhead h2{font-size:17px}.subhead select{max-width:145px;border-radius:22px;font-size:12px}.zone-day{border-bottom:1px solid var(--border);padding:13px 0}.zone-day:last-of-type{border-bottom:0}.zone-day-title{font-size:13px;font-weight:750;margin-bottom:9px}.zone-empty{font-size:12px;color:var(--muted);padding:6px 0}.time-booking{border:1px solid var(--border);border-radius:10px;background:var(--soft);padding:9px 10px;margin:0 5px 7px 0;color:var(--text);display:inline-flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:100%;text-align:left}.time-booking:hover{border-color:var(--accent)}.time-label{font-size:12px;font-weight:750}.booking-name{font-size:11px;max-width:170px;overflow:hidden;text-overflow:ellipsis}.mini-pre{font-size:10px;color:#a27d26}.day-add{margin-top:15px;width:100%}.primary{background:#6650ed;color:#fff;box-shadow:0 3px 10px #6650ed26}.modalback{z-index:40}.mobile-toggle{display:none}.footer{line-height:1.6}
+@media(max-width:1100px){.workspace{padding:22px}.sidebar{width:195px}.layout{grid-template-columns:minmax(0,1fr)}.day-panel{min-height:0}.top{flex-wrap:wrap}.global-search{max-width:none;flex-basis:100%}.topright{width:100%;justify-content:flex-end}}
+@media(max-width:700px){.mobile-toggle{display:block;position:fixed;top:14px;left:12px;z-index:31;border:0;border-radius:10px;background:var(--sidebar);color:#fff;font-size:20px;padding:7px 12px}.sidebar{position:fixed;left:0;top:0;bottom:0;z-index:30;transform:translateX(-100%);transition:transform .2s;box-shadow:5px 0 25px #0002}.sidebar.open{transform:translateX(0)}.workspace{padding:62px 12px 35px;width:100%}.top{gap:10px}.topright{flex-wrap:wrap;justify-content:space-between;gap:6px}.topright select{max-width:140px}.topright #role{max-width:155px}.top-add{flex:1}.heading h1{font-size:24px}.metrics{gap:8px}.metric{padding:13px}.metric strong{font-size:21px}.panel{padding:13px}.date{min-height:51px;padding:5px 3px}.number{font-size:12px}.event-chip{font-size:0;width:6px;height:6px;border-radius:50%;padding:0}.dots{flex-direction:row;justify-content:center}.event-more{font-size:9px}.monthname{font-size:15px}.day-panel{min-height:0}.pair,.triple{grid-template-columns:1fr}.modal{padding:16px}}
+
+/* v0.4: поиск, кнопки, статусы календаря */
+.global-search{display:flex;align-items:center;gap:9px;min-width:0}.global-search input{flex:1;min-width:0}.find-button{white-space:nowrap;border-radius:999px;padding:12px 20px;box-shadow:0 3px 10px #6650ed22}
+#theme{border-radius:14px!important;width:44px!important;height:44px!important;transition:transform .15s,background .15s}.top-add{border-radius:14px!important;padding:12px 19px}.primary,.secondary{transition:transform .15s,box-shadow .15s}.primary:hover,.secondary:hover{transform:translateY(-1px)}
+.metric-action{border:1px solid transparent;text-align:left;color:var(--text);cursor:pointer;font:inherit;transition:border-color .15s,transform .15s}.metric-action:hover,.metric-action:focus-visible{border-color:var(--accent);transform:translateY(-1px)}
+.dots{flex-direction:row!important;align-items:center;align-content:flex-start;gap:5px!important;flex-wrap:wrap}.status-dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none;border:1px solid #00000012}.status-dot.confirmed,.badge-dot.confirmed{background:#26a269}.status-dot.preliminary,.badge-dot.preliminary{background:#9299a5}.status-dot.cancelled,.badge-dot.cancelled{background:#dc5965}.status-dot.moved,.badge-dot.moved{background:#e9b33c}.date.selected .status-dot{border-color:#ffffff66}.badge-dot{width:9px;height:9px}.legend{gap:12px}.legend span{white-space:nowrap}
+@media(max-width:700px){.global-search{width:100%;max-width:none}.find-button{padding:12px 14px}.status-dot{width:7px;height:7px}.date{min-height:57px}.dots{gap:3px!important}}
+
+.brand-home{display:inline-block;color:inherit;text-decoration:none;cursor:pointer}.brand-home:hover{color:#d6cbff}
+.date-head{display:flex;align-items:center;justify-content:space-between;width:100%}.date-plus{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:7px;color:var(--accent);font-size:18px;font-weight:700;opacity:.7}.date-plus:hover{background:var(--accent2);opacity:1}
+.cancelled-booking{border:1px solid #dc5965!important;background:#dc59651c!important}.cancelled-booking .booking-name{color:#c44755!important;text-decoration:line-through}
+.catalog-search{display:flex;gap:9px;margin-bottom:18px}.catalog-search input{flex:1;min-width:0}.catalogrow[hidden]{display:none!important}
+@media(max-width:700px){.date-plus{width:17px;height:17px;font-size:14px}.catalog-search{flex-wrap:wrap}}
+
+/* v0.6 */
+.developer .admin-only{display:none!important}.developer-only{display:none!important}.developer .developer-only{display:flex!important}
+.club-logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;overflow:hidden;background:var(--surface);border:1px solid var(--border);flex:none;color:var(--accent)}.club-logo img{width:100%;height:100%;object-fit:contain}
+.metrics{max-width:480px;gap:9px}.metric{padding:10px 14px;gap:3px;border-radius:12px}.metric strong{font-size:21px}
+.inline-finance{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}.inline-finance label{font-size:12px}.inline-finance input{margin-top:6px}.inline-finance button{grid-column:1/-1;justify-self:start}
+.appearance-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;max-width:650px}.appearance-form label{display:flex;flex-direction:column;gap:6px}.appearance-form input[type=color]{height:45px;padding:3px}.appearance-form .logo-clear{display:flex;flex-direction:row;align-items:center}.appearance-form button{grid-column:1/-1;justify-self:start}
+@media(max-width:700px){.metrics{max-width:none}.inline-finance,.appearance-form{grid-template-columns:1fr}.club-logo{width:30px;height:30px}}
+
+/* Rafi brand identity: adapted from the user's ZIRAVO reference. */
+:root{--bg:#FFF4E0;--surface:#FFFFFF;--soft:#FFF8EC;--text:#1B1E24;--muted:#5A6472;--border:#E9E1D4;--accent:#F0A500;--accent2:#FFF0C8;--sidebar:#1B1E24;--sidebar-text:#D4D6D9;--good:#23856B;--pre:#8C939C}
+[data-theme="dark"]{--bg:#12151B;--surface:#20242C;--soft:#2A2F39;--text:#F6F3ED;--muted:#B6BDC8;--border:#363C46;--accent:#F0A500;--accent2:#46391F;--sidebar:#11141A;--sidebar-text:#C9CDD4}
+.sidebar{background:var(--sidebar)}.sidebar-brand{padding-bottom:30px}.sidebar-brand .brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-size:28px;letter-spacing:-1px}.rafi-brand-icon{width:45px;height:53px;object-fit:contain;flex:none}.sidebar-caption{line-height:1.5;color:#C5C9CE;margin-left:55px}.sidebar .nav button.active{background:#333943;color:#fff}.sidebar .nav button.active .navdot{background:#F0A500}.navdot{background:#F0A500}.sidebar .nav button:hover:not(.active){background:#292E37;color:#fff}.primary,.top-add{background:#F0A500;color:#1B1E24;border-radius:12px}.primary:hover,.top-add:hover{background:#FFBB25}.nav button,.secondary,.date,.booking,.panel,.metric{transition:background .15s,border-color .15s}.date.selected{background:#1B1E24;border-color:#1B1E24;box-shadow:inset 0 -3px 0 #F0A500;color:#fff}.date.today:not(.selected){border-color:#F0A500}.metric{border:1px solid var(--border)}.panel{border:1px solid var(--border)}.tag{color:var(--text)}.topright #theme{border-radius:12px!important}.sidebar-foot{line-height:1.5}.global-search input:focus{outline-color:#F0A500}
+@media(max-width:700px){.rafi-brand-icon{width:39px;height:45px}.sidebar-brand .brand{font-size:25px}}
+
+/* Rafi v0.7: completed bookings and vector floor plan */
+.status-dot.finished,.badge-dot.finished{background:#2d80e6!important}
+.finished-text,.mini-finished{color:#2d80e6!important;font-weight:800}
+.finished-booking{border-left:4px solid #2d80e6!important;background:color-mix(in srgb,#2d80e6 9%,var(--surface))!important}
+.date .number{font-size:11px;white-space:nowrap;font-weight:700}
+/* Rafi 0.8 */
+.image-plan{aspect-ratio:1.7;background-image:none;background-color:var(--soft);min-height:300px}
+.image-plan>img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
+.plan-zone{background:color-mix(in srgb,var(--accent) 35%,transparent);border:2px solid var(--accent);z-index:2;cursor:pointer;text-shadow:0 1px 1px var(--surface)}
+.plan-upload{margin-bottom:20px}.plan-upload input{max-width:420px}.plan-upload button{margin:9px}
+.day-event{display:grid;grid-template-columns:1fr auto;gap:3px 12px;padding:13px;margin:7px 0;text-align:left}
+.day-event .time-label{font-weight:800}.day-event .booking-name{grid-column:1}.day-event .day-zone{grid-column:2;grid-row:1;color:var(--muted);font-size:11px}.day-event .day-status{grid-column:2;grid-row:2;font-size:12px;font-weight:700}
+.day-status.FINISHED,.day-status.finished{color:#2d80e6}.day-status.cancelled{color:#d75555}.day-status.preliminary{color:#89929c}.day-status.confirmed{color:#218a68}
+.document-actions{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}.document-actions button{font-size:12px}
+.past-date{opacity:.40;filter:grayscale(.55)}.past-date .date-plus{display:none}.zone-picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 0 14px}.zone-pick{display:flex;align-items:center;gap:8px;border:1px solid var(--line,#ddd);border-radius:10px;padding:9px}.checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.checklist label{display:flex;align-items:center;gap:8px}.account-label{font-size:12px;opacity:.7}#rentalform{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#rentalform label{display:grid;gap:5px}#rentalform button{grid-column:1/-1}@media(max-width:650px){.zone-picks,.checklist,#rentalform{grid-template-columns:1fr}}
+
+
+.upcoming-widget{padding:20px;margin:15px 0}.upcoming-widget h3{margin:0}.upcoming-row{width:100%;display:grid;grid-template-columns:72px minmax(110px,1fr) minmax(90px,.8fr) 10px;align-items:center;gap:12px;background:transparent;border:0;border-bottom:1px solid var(--border);padding:12px 4px;text-align:left;color:var(--text)}.upcoming-row:last-child{border:0}.upcoming-row:hover{background:var(--soft)}.upcoming-row small{display:block;color:var(--muted);font-size:11px}.upcoming-row strong{font-size:13px}.upcoming-row .muted{font-size:12px}.reminder-hint{padding:10px 15px;background:var(--accent2);border-radius:12px;color:var(--text);font-size:12px;margin:8px 0}.metrics:empty{display:none}.metrics{flex-wrap:wrap}.metrics .metric{flex:1;min-width:175px}.manager-grid .panel{min-width:0}
+
+/* Rafi 1.0: warm, spacious desktop design system */
+:root{--bg:#F8F3EB;--surface:#FFFCF7;--soft:#FFF7E9;--text:#292621;--muted:#82796E;--border:#EDE3D7;--accent:#EBA32A;--accent2:#FFF0D6;--sidebar:#FBF7F0;--sidebar-text:#413A32;--good:#26885C}
+[data-theme="dark"]{--bg:#191B20;--surface:#24262C;--soft:#2E3037;--text:#F5F1EA;--muted:#B6AEA4;--border:#3B3D44;--accent:#F0AD3E;--accent2:#443721;--sidebar:#202228;--sidebar-text:#F5F1EA}
+body{background:var(--bg)}.app-shell{gap:0}.sidebar{background:var(--sidebar);border-right:1px solid var(--border);box-shadow:none}.sidebar .brand,.sidebar .nav button,.sidebar-caption,.sidebar-foot{color:var(--sidebar-text)!important}.sidebar .nav button{border-radius:15px;margin:4px 10px}.sidebar .nav button.active{background:#FFE8C4;color:#693E08!important}.sidebar .nav button.active .navdot{background:#EBA32A}.sidebar .nav button:hover:not(.active){background:#F3EADC;color:#3D3020!important}.workspace{min-width:0}.top{background:transparent;border-bottom:0;padding:15px 0 24px}.heading h1{letter-spacing:-.04em}.panel,.metric,.modal,.booking,.time-booking{border-radius:22px!important;box-shadow:0 7px 30px rgba(75,49,16,.035)}.primary,.secondary,.ghost,.top-add,.monthnav button{border-radius:13px!important}.primary,.top-add{background:#EBA32A;color:#292116}.primary:hover,.top-add:hover{background:#F4B74B}.secondary{background:var(--surface)}input,select,textarea{border-radius:12px!important;border-color:var(--border)!important;background:var(--surface)}input:focus,textarea:focus,select:focus{outline:2px solid #EBA32A55;outline-offset:1px}.date{border-radius:12px!important}.date.selected{background:#FFF0D6;color:#4C351A;border:1px solid #EBA32A;box-shadow:none}.metrics{gap:12px}.metric{padding:18px!important}.day-event{border-radius:14px!important;box-shadow:none}.compact-checklist{display:grid;grid-template-columns:1fr!important;gap:0!important;border:1px solid var(--border);border-radius:16px;padding:4px 14px}.compact-checklist label{display:flex!important;flex-direction:row-reverse;justify-content:space-between;gap:16px;align-items:center;min-height:45px;border-bottom:1px solid var(--border);margin:0!important;padding:8px 0}.compact-checklist label:last-child{border:0}.compact-checklist input[type=checkbox],.setting-toggle input[type=checkbox]{appearance:none;flex:0 0 20px!important;width:20px!important;height:20px!important;min-width:20px;min-height:20px;margin:0!important;border:1.5px solid #BBAE9B!important;border-radius:7px!important;cursor:pointer}.compact-checklist input:checked,.setting-toggle input:checked{background:#EBA32A;border-color:#EBA32A!important}.compact-checklist input:checked:after,.setting-toggle input:checked:after{content:'✓';display:block;color:#2A2115;font-size:15px;font-weight:900;text-align:center;line-height:17px}.settings-card{max-width:880px;margin-bottom:18px;padding:24px}.setting-toggle{display:flex!important;align-items:center!important;justify-content:space-between;gap:16px;padding:15px 4px;border-bottom:1px solid var(--border)}.manager-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:15px;margin-bottom:18px}.club-manager-card{padding:22px}.manager-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.staff-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 0;border-bottom:1px solid var(--border)}.staff-row .muted{font-size:12px;margin-top:5px}.reminders .panel{padding:18px!important}.reminders .row{justify-content:flex-start!important;gap:9px}.reminders [data-remind]{font-size:12px;padding:10px 13px}.sidebar-foot small{opacity:.6}
+
+/* Rafi 1.0.4: compact zone selection and clear banquet detail grouping */
+.zone-picks{display:flex!important;flex-direction:column!important;gap:0!important;max-width:100%;margin:8px 0 16px;border:1px solid var(--border);border-radius:15px;overflow:hidden;background:var(--surface)}
+.zone-pick{display:flex!important;align-items:center;gap:12px;min-height:44px;border:0!important;border-bottom:1px solid var(--border)!important;border-radius:0!important;padding:10px 15px!important;margin:0!important;cursor:pointer;font-size:14px;transition:background .15s}
+.zone-pick:last-child{border-bottom:0!important}.zone-pick:hover{background:var(--soft)}
+.zone-pick:has(input:checked){background:var(--accent2)}
+.zone-pick input[type=checkbox]{appearance:none;-webkit-appearance:none;display:inline-grid;place-items:center;flex:0 0 19px;width:19px;height:19px;min-width:19px;min-height:19px;border:2px solid var(--muted)!important;border-radius:50%!important;background:var(--surface);margin:0;cursor:pointer}
+.zone-pick input[type=checkbox]:checked{border:5px solid var(--accent)!important;background:var(--surface)}
+.zone-pick input[type=checkbox]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#modalcontent .banquet-section{padding:15px 0 17px;border-bottom:1px solid var(--border)}
+#modalcontent .banquet-section:first-child{padding-top:0}
+#modalcontent .banquet-section:last-child{border-bottom:0;padding-bottom:0}
+#modalcontent .banquet-section .sectionhead{margin:0 0 13px;display:flex;align-items:center;justify-content:space-between}
+#modalcontent .banquet-section .sectionhead h3{font-size:15px;font-weight:750;color:var(--text);margin:0}
+#modalcontent .banquet-section .detailrow{padding:8px 0;border-bottom:1px solid var(--border)}
+#modalcontent .banquet-section .detailrow:last-child{border-bottom:0}
+#modalcontent .banquet-section .detailrow span{color:var(--muted)}
+#modalcontent .banquet-section .total{background:var(--soft);border-radius:13px;padding:13px;margin:12px 0}
+#modalcontent .banquet-section .inline-finance{margin:0}
+#modalcontent .banquet-section .document-actions{margin:7px 0}
+@media(max-width:700px){.zone-pick{min-height:48px}#modalcontent .banquet-section{padding:13px 0}}
+
+/* RAFI 2.0 · Peach & Slate · approved visual system */
+:root{font-family:'Manrope',Inter,system-ui,-apple-system,'Segoe UI',sans-serif;--bg:#F7F8FA;--surface:#FFFFFF;--soft:#F7F8FA;--text:#34445C;--muted:#7B8BA2;--border:#E7EBF1;--accent:#F3A899;--accent2:#FCEAE5;--sidebar:#F9FAFC;--sidebar-text:#405775;--good:#4B9E7B;--pre:#99A4B4;--danger:#DA6475;color-scheme:light}
+[data-theme='dark']{--bg:#171F2B;--surface:#222D3D;--soft:#2B394C;--text:#F5F7FB;--muted:#AAB8CB;--border:#3B4A5E;--accent:#F3A899;--accent2:#503F47;--sidebar:#1C2634;--sidebar-text:#D7E1EF;--good:#73BE9B;--danger:#F18A96;color-scheme:dark}
+body{font-family:'Manrope',Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+.app-shell{min-height:100vh}.workspace{max-width:1780px;padding:24px 32px 48px}.sidebar{width:242px;background:var(--sidebar);border-right:1px solid var(--border);padding:27px 12px 23px;box-shadow:none}
+.sidebar-brand{padding:2px 14px 32px}.sidebar-brand .brand{font-size:31px;font-weight:800;letter-spacing:-1.6px;color:var(--text)!important}.rafi-brand-icon{width:43px;height:49px}.sidebar-caption{color:var(--muted)!important;font-size:11px;margin-left:53px;line-height:1.6}.sidebar .nav{gap:6px}.sidebar .nav button{margin:0;padding:14px 13px;border-radius:15px;font-size:13px;font-weight:650;color:var(--sidebar-text)!important;gap:12px}.sidebar .nav button.active{background:var(--accent2);color:#965646!important}.sidebar .nav button:hover:not(.active){background:var(--soft);color:var(--text)!important}.navdot{background:#A9B8C9;width:7px;height:7px}.sidebar .nav button.active .navdot{background:#E9947E}.sidebar-foot{border-top:1px solid var(--border);padding:18px 12px 0;color:var(--muted)!important;font-size:11px}
+.top{padding:0 0 19px;gap:18px;flex-wrap:wrap}.global-search{max-width:550px}.global-search input{background:var(--surface);border:1px solid var(--border)!important;border-radius:16px!important;padding:14px 17px;box-shadow:0 4px 18px #34445c06}.global-search input::placeholder{color:#9AA8BA}.find-button{background:var(--text)!important;color:var(--surface)!important;border-radius:14px!important;padding:13px 17px;box-shadow:none}.topright{gap:10px}.topright select{background:var(--surface);border-radius:14px!important;min-height:45px}.topright #theme{background:var(--surface);border:1px solid var(--border);color:var(--text);box-shadow:none}.primary,.top-add{background:var(--accent)!important;color:#34445C!important;border:0;border-radius:15px!important;padding:12px 18px;font-weight:800;box-shadow:0 7px 16px #F3A89925;transition:transform .15s,filter .15s}.primary:hover,.top-add:hover{filter:brightness(.96);transform:translateY(-1px)}.secondary{border-radius:13px!important;background:var(--surface);border:1px solid var(--border);color:var(--text);box-shadow:none}.ghost{color:var(--muted)}.linkbutton{color:#D98573}.heading{margin:6px 0 21px}.heading h1{font-size:clamp(25px,2.4vw,37px);font-weight:800;letter-spacing:-1.4px;color:var(--text)}.heading .muted{font-size:13px;margin-top:7px}h1,h2,h3{letter-spacing:-.45px}h2{font-size:19px;font-weight:800}.panel,.metric,.modal,.booking,.time-booking{background:var(--surface);border:1px solid var(--border);border-radius:22px!important;box-shadow:0 10px 32px #34445c08}.panel{padding:23px}.layout{grid-template-columns:minmax(0,1.5fr) minmax(310px,1fr);gap:19px;align-items:stretch}.calendar-panel,.day-panel{min-width:0}.monthnav{margin-bottom:16px}.monthnav .monthname{font-size:19px;font-weight:800;color:var(--text);text-transform:capitalize}.monthnav button{border:1px solid var(--border);background:var(--surface);border-radius:13px!important;color:var(--text);width:38px;height:38px;font-size:22px}.monthnav button:hover{background:var(--accent2)}.calendar{gap:6px}.weekday{font-size:12px;font-weight:750;color:var(--muted);padding:10px 0 13px}.date{min-height:78px;padding:10px 9px;gap:7px;border:1px solid var(--border);border-radius:15px!important;background:var(--soft);color:var(--text);box-shadow:none;transition:background .15s,border-color .15s,transform .15s}.date:hover{background:var(--accent2);border-color:var(--accent);transform:translateY(-1px)}.date.selected{background:linear-gradient(150deg,#F9C7BA,#F3A899);border:1px solid #F3A899;color:#34445C;box-shadow:0 8px 20px #F3A89935}.date.today:not(.selected){border-color:#E6A28E}.date.empty{border:0;background:transparent;box-shadow:none}.date .number{font-size:14px;font-weight:800;white-space:nowrap}.date-head{align-items:flex-start}.date-plus{font-size:17px;color:var(--muted);opacity:0}.date:hover .date-plus,.date:focus-visible .date-plus{opacity:1}.date.selected .date-plus{color:#34445C}.date.past-date{opacity:.55;filter:none}.dots{gap:4px!important;flex-direction:row!important}.status-dot{width:8px;height:8px;border:0}.date.selected .status-dot{border:1px solid #fff8}.status-dot.confirmed,.badge-dot.confirmed{background:#68B696}.status-dot.preliminary,.badge-dot.preliminary{background:#9AA5B3}.status-dot.cancelled,.badge-dot.cancelled{background:#E67B88}.status-dot.moved,.badge-dot.moved{background:#E9B961}.status-dot.finished,.badge-dot.finished{background:#78A9DE!important}.legend{gap:11px 16px;margin-top:20px;font-size:11px}.legend span{white-space:nowrap}.badge-dot{width:9px;height:9px;margin-right:6px}
+.day-panel{min-height:0}.day-panel .subhead{margin-bottom:20px;gap:12px;flex-wrap:wrap}.day-panel .subhead h2{font-size:20px;font-weight:800}.day-panel .subhead .muted{margin-top:7px}.day-panel .subhead select{max-width:180px;font-size:12px;border-radius:12px!important}.day-event{position:relative;display:grid;grid-template-columns:95px minmax(0,1fr);grid-template-rows:auto auto auto;gap:6px 15px;width:100%;max-width:100%;margin:0 0 12px!important;padding:20px 17px 20px 21px!important;border:1px solid var(--border);border-left:5px solid #68B696!important;border-radius:18px!important;background:var(--surface)!important;text-align:left;box-shadow:0 4px 15px #34445c06!important}.day-event:has(.day-status.preliminary){border-left-color:#F3A899!important}.day-event:has(.day-status.cancelled){border-left-color:#E67B88!important}.day-event:has(.day-status.moved){border-left-color:#E9B961!important}.day-event:has(.day-status.finished){border-left-color:#78A9DE!important}.day-event .time-label{grid-column:1;grid-row:1/4;font-size:16px;font-weight:850;line-height:1.5;white-space:normal;color:var(--text);overflow-wrap:anywhere}.day-event .booking-name{grid-column:2;grid-row:1;max-width:none;font-size:13px;font-weight:800;color:var(--text);white-space:normal}.day-event .day-zone{grid-column:2;grid-row:2;font-size:12px;color:var(--muted)}.day-event .day-status{grid-column:2;grid-row:3;justify-self:start;border-radius:99px;padding:5px 10px;font-size:11px;background:var(--soft);font-weight:750}.day-event .day-status.confirmed{color:#3A9870;background:#E8F6EF}.day-event .day-status.preliminary{color:#B87866;background:#FFF0EB}.day-event .day-status.finished{color:#4D87C4;background:#E9F2FE}.day-event .day-status.cancelled{color:#CB6874;background:#FFF0F1}.day-event .day-status.moved{color:#B18A3A;background:#FFF6DF}.day-event:hover{border-color:var(--accent);transform:translateY(-1px)}.day-add{margin-top:14px;border:1px dashed var(--border);background:var(--soft);font-weight:750;padding:13px}
+.metrics{max-width:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:19px 0 20px}.metric{min-width:0!important;padding:21px!important;gap:10px;display:flex;flex-direction:column;justify-content:center;border-radius:20px!important}.metric span{font-size:12px;font-weight:650;color:var(--muted)}.metric strong{font-size:clamp(19px,2vw,27px);font-weight:850;color:var(--text);letter-spacing:-.8px}.metric-action:hover{border-color:var(--accent)}.reminders .panel{background:var(--surface)}.upcoming-widget{margin:0 0 17px;padding:18px 23px!important}.reminder-hint{background:var(--accent2);color:var(--text)}
+input,select,textarea{background:var(--surface);color:var(--text);border:1px solid var(--border)!important;border-radius:13px!important;padding:11px 12px}input:focus,select:focus,textarea:focus{outline:2px solid #F3A89980!important;outline-offset:1px}.modalback{backdrop-filter:blur(5px);background:#18243a9c}.modal{border-radius:24px!important;padding:26px;box-shadow:0 25px 100px #0e172b45}.modalhead{border-bottom:1px solid var(--border);padding-bottom:15px}.catalogrow,.staff-row{gap:13px}.tag,.notice{background:var(--accent2);color:var(--text)}.zone-pick:has(input:checked){background:var(--accent2)}.zone-pick input[type=checkbox]:checked{border-color:var(--accent)!important}.total{background:var(--accent2)}.layoutmap{border-color:var(--border)}.plan-zone{border-color:var(--accent)}.footer{color:var(--muted);font-size:11px;margin-top:28px}.mobile-bottom-nav{display:none}
+[data-theme='dark'] .date.selected{background:linear-gradient(150deg,#F9C7BA,#F3A899);color:#34445C}[data-theme='dark'] .day-event .day-status.confirmed{background:#294D42;color:#90DBB5}[data-theme='dark'] .day-event .day-status.preliminary{background:#513F41;color:#FFC5B5}[data-theme='dark'] .day-event .day-status.finished{background:#30455F;color:#A5CBF8}[data-theme='dark'] .day-event .day-status.cancelled{background:#513C45;color:#FFA6B2}[data-theme='dark'] .sidebar .nav button.active{background:#473A42;color:#FFD1C5!important}[data-theme='dark'] .sidebar .nav button:hover:not(.active){background:#2B394C}[data-theme='dark'] .find-button{background:#34445C!important;color:#fff!important}
+@media(max-width:1250px){.workspace{padding:22px}.sidebar{width:215px}.layout{grid-template-columns:minmax(0,1.25fr) minmax(290px,1fr)}.date{min-height:65px;padding:7px 5px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.day-event{grid-template-columns:80px minmax(0,1fr);gap:6px 9px;padding:14px 10px!important}}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.day-panel{min-height:0}.global-search{max-width:none;flex-basis:100%}.topright{width:100%;justify-content:flex-end}}
+@media(max-width:700px){.workspace{width:100%;padding:17px 12px 100px}.sidebar{position:fixed;top:0;bottom:0;left:0;z-index:35;width:min(300px,85vw);padding-top:27px;transform:translateX(-105%);box-shadow:8px 0 30px #0e172b20}.sidebar.open{transform:translateX(0)}.mobile-toggle{display:none!important}.mobile-bottom-nav{position:fixed;display:flex;justify-content:space-around;align-items:center;gap:4px;bottom:0;left:0;right:0;z-index:30;background:var(--surface);border-top:1px solid var(--border);padding:9px 10px max(9px,env(safe-area-inset-bottom));box-shadow:0 -8px 25px #34445c12}.mobile-bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;padding:9px 3px;border:0;border-radius:13px;background:transparent;color:var(--muted);font-size:10px;font-weight:750}.mobile-bottom-nav button.active{background:var(--accent2);color:#BB7867}.mobile-bottom-nav .mobile-icon{font-size:20px;line-height:1.2}.mobile-bottom-nav .dev-tab{display:none}.developer .mobile-bottom-nav .admin-tab{display:none}.developer .mobile-bottom-nav .dev-tab{display:flex}.top{gap:9px;padding:0 0 15px}.global-search{width:100%;gap:7px}.global-search input{min-width:0;padding:11px 12px;font-size:12px}.find-button{padding:11px 12px}.topright{flex-wrap:wrap;justify-content:flex-start;gap:7px}.topright #club{flex:1;max-width:none;min-width:120px}.topright #role{max-width:155px}.topright #theme{height:43px!important;width:43px!important}.top-add{flex:1;min-width:130px;font-size:12px;padding:12px 10px}.heading{margin:8px 0 17px}.heading h1{font-size:26px}.heading .muted{font-size:11px}.panel{padding:12px}.layout{gap:13px}.calendar{gap:3px}.weekday{font-size:10px;padding:8px 0}.date{min-height:54px;padding:5px 2px;border-radius:10px!important;gap:5px;align-items:center}.date .number{font-size:12px}.date-head{justify-content:center}.date-plus{display:none!important}.status-dot{width:6px;height:6px}.dots{gap:2px!important;justify-content:center}.monthnav{margin-bottom:11px}.monthnav .monthname{font-size:16px}.monthnav button{width:33px;height:33px;font-size:19px}.legend{gap:8px 11px;margin-top:13px}.legend span{font-size:10px}.badge-dot{width:7px;height:7px}.day-panel .subhead h2{font-size:17px}.day-panel .subhead select{max-width:145px}.day-event{grid-template-columns:84px minmax(0,1fr);padding:14px 12px!important;gap:5px 10px}.day-event .time-label{font-size:14px}.day-event .booking-name{font-size:12px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:13px 0}.metric{padding:14px!important}.metric strong{font-size:19px}.metric span{font-size:11px}.modal{padding:17px}.pair,.triple,.split{grid-template-columns:1fr}.upcoming-row{grid-template-columns:75px minmax(0,1fr) 10px}.upcoming-row .muted{display:none}.searchgrid{grid-template-columns:1fr 1fr}.footer{padding-bottom:10px}}
+@media(max-width:380px){.date{min-height:46px}.date .number{font-size:11px}.day-event{grid-template-columns:70px minmax(0,1fr)}.topright #role{max-width:130px}.legend span{font-size:9px}}
+
+
+/* Rafi 2.0 · Mobile exact-reference pass — desktop behavior unchanged */
+.mobile-brand,.mobile-search-icon,.mobile-search-arrow,.mobile-new-booking,.mobile-utilities,.mobile-day-plus{display:none}
+@media(max-width:700px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .workspace{padding:20px 15px 112px!important}
+  .top{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);grid-template-rows:53px 62px;column-gap:9px;row-gap:13px;padding:0 0 20px!important;align-items:center;position:relative}
+  .mobile-brand{display:flex;align-items:center;gap:7px;text-decoration:none;min-width:0;color:var(--text)}
+  .mobile-brand img{width:38px;height:46px;object-fit:contain;filter:sepia(1) saturate(3) hue-rotate(315deg) brightness(1.13)}
+  .mobile-brand strong{font-size:31px;font-weight:850;letter-spacing:-1.8px;line-height:1}
+  .topright{display:contents!important}
+  .topright #club{display:block!important;grid-column:2;grid-row:1;width:100%;min-width:0;max-width:none!important;border:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;padding:7px 20px 7px 0!important;height:43px!important;min-height:0!important;font-size:12px!important;font-weight:750!important;color:var(--text);text-overflow:ellipsis;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'%3E%3Cpath d='m2 2 5 5 5-5' fill='none' stroke='%2334455C' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")!important;background-repeat:no-repeat!important;background-position:right center!important}
+  .topright #role,.topright #theme,.topright #globalAdd,.topright .account-label,.topright #pwdbtn,.topright form{display:none!important}
+  .global-search{display:flex!important;grid-column:1/-1;grid-row:2;position:relative;max-width:none!important;width:100%;height:62px;gap:0!important;border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:5px 5px 5px 15px;box-shadow:0 6px 24px #34445c0c}
+  .global-search[style*="none"]{display:none!important}
+  .mobile-search-icon{display:grid;place-items:center;flex:none;width:29px;height:29px;color:#607896}
+  .mobile-search-icon svg{width:25px;height:25px}
+  .global-search input{flex:1!important;min-width:0!important;width:1px!important;height:100%;background:transparent!important;border:0!important;box-shadow:none!important;outline:none!important;padding:0 7px!important;border-radius:0!important;font-size:clamp(10px,3.1vw,14px)!important;color:var(--text)}
+  .global-search input:focus{outline:0!important}
+  .find-button{flex:none;display:grid;place-items:center;padding:0!important;width:49px;height:49px;border-radius:50%!important;box-shadow:none!important;background:var(--accent)!important;color:#fff!important;font-size:30px!important;font-weight:400!important;line-height:1}
+  .desktop-find-label{display:none}.mobile-search-arrow{display:block}
+  #page:has(.calendar-panel){display:flex;flex-direction:column;gap:0}
+  #page:has(.calendar-panel)>.heading{order:0}
+  #page:has(.calendar-panel)>.layout{order:1}
+  #page:has(.calendar-panel)>#reminders{order:2}
+  #page:has(.calendar-panel)>.metrics{order:3}
+  .heading{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:6px 0 18px!important;min-width:0}
+  .heading h1{font-size:clamp(21px,6vw,29px)!important;letter-spacing:-1.1px;white-space:nowrap}
+  .heading>.muted,.heading .muted{font-size:clamp(9px,2.4vw,11px)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;margin-top:5px}
+  .heading>div{min-width:0;flex:1}
+  .mobile-new-booking{display:block!important;flex:none;white-space:nowrap;padding:12px 12px!important;border-radius:999px!important;font-size:clamp(10px,2.8vw,13px)!important;font-weight:800;box-shadow:none!important}
+  .layout{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+  .calendar-panel{padding:17px 12px 16px!important;border-radius:26px!important;box-shadow:0 10px 30px #34445c0d}
+  .monthnav{display:grid;grid-template-columns:38px minmax(0,1fr) 38px;gap:4px;margin:0 0 12px}
+  .monthnav .monthname{font-size:clamp(16px,4.8vw,20px)!important;text-align:center;white-space:nowrap}
+  .monthnav button{width:37px!important;height:37px!important;border-radius:50%!important;display:grid;place-items:center;padding:0!important;font-size:24px}
+  .calendar{gap:4px!important;grid-template-columns:repeat(7,minmax(0,1fr))}
+  .weekday{padding:7px 0 11px!important;font-size:10px!important}
+  .date{min-width:0;min-height:clamp(42px,12.3vw,61px)!important;align-items:center;justify-content:center;gap:4px!important;padding:5px 1px!important;border-radius:13px!important;background:var(--surface)!important;border:1px solid var(--border)!important;box-shadow:0 2px 7px #34445c04}
+  .date.selected{background:linear-gradient(155deg,#F8BCAE,#F3A899)!important;border-color:#F3A899!important;box-shadow:0 5px 15px #F3A89930!important;color:#34445C!important}
+  .date.empty{border:0!important;background:transparent!important;box-shadow:none!important}
+  .date .number{font-size:clamp(11px,3.2vw,14px)!important;font-weight:800}
+  .date .dots{width:auto!important;min-height:6px;justify-content:center;align-items:center;gap:3px!important;flex-wrap:nowrap;max-width:100%}
+  .status-dot{width:6px!important;height:6px!important;flex:none}
+  .legend{display:flex;gap:8px 11px!important;margin-top:17px!important;justify-content:center}
+  .legend span{font-size:9px!important;white-space:nowrap}
+  .badge-dot{width:9px!important;height:9px!important}
+  .day-panel{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important}
+  .day-panel .subhead{margin:3px 0 15px!important;align-items:center;flex-wrap:nowrap}
+  .day-panel .subhead h2{font-size:clamp(18px,5.4vw,24px)!important}
+  .day-panel .subhead .muted{font-size:12px}
+  .day-panel #statusfilter{width:36px;max-width:36px!important;height:36px;padding:4px!important;border-radius:50%!important;font-size:0;color:transparent;background:var(--surface)}
+  .day-panel .subhead:after{display:none}
+  .mobile-day-plus{display:grid;place-items:center;flex:none;width:42px;height:42px;background:var(--accent);color:#fff;border:0;border-radius:50%;font-size:27px;margin-left:auto}.mobile-day-plus:disabled{opacity:.4}
+  .day-panel .subhead #statusfilter{margin-left:0}
+  .day-event{display:grid!important;grid-template-columns:76px minmax(0,1fr)!important;grid-template-rows:auto auto auto!important;gap:5px 9px!important;padding:15px 11px!important;margin-bottom:12px!important;border-radius:22px!important;box-shadow:0 6px 20px #34445c0a!important;min-height:100px}
+  .day-event .time-label{grid-column:1!important;grid-row:1/4!important;font-size:clamp(12px,3.3vw,15px)!important;overflow-wrap:normal;word-break:normal;align-self:center}
+  .day-event .booking-name{grid-column:2!important;grid-row:1!important;font-size:clamp(12px,3.3vw,14px)!important}
+  .day-event .day-zone{grid-column:2!important;grid-row:2!important;font-size:12px}
+  .day-event .day-status{grid-column:2!important;grid-row:3!important;border-radius:999px!important}
+  .day-add{border-radius:999px!important}
+  .mobile-bottom-nav{border:1px solid var(--border);border-bottom:0;box-shadow:0 -7px 28px #34445c14;border-radius:30px 30px 0 0;padding:10px 8px max(11px,env(safe-area-inset-bottom))!important;min-height:76px}
+  .mobile-bottom-nav button{border-radius:19px!important;gap:4px!important;padding:7px 1px!important;font-size:10px!important}
+  .mobile-bottom-nav .mobile-icon{font-size:23px!important;line-height:1.2}
+  .mobile-bottom-nav button.active{background:var(--accent2);color:#B85C46}
+  .mobile-utilities{display:flex;flex-direction:column;gap:8px;padding:12px 8px;margin-top:auto}
+  .mobile-utilities button{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:11px;color:var(--text);text-align:left;font-size:13px}
+  .sidebar-foot{margin-top:0!important}
+  input:not(#globalSearch),select:not(#club),textarea,.primary,.secondary{border-radius:999px!important}
+  textarea{border-radius:22px!important}
+}
+@media(max-width:365px){.workspace{padding-left:10px!important;padding-right:10px!important}.calendar-panel{padding:13px 8px!important}.calendar{gap:3px!important}.date{border-radius:10px!important}.legend{gap:6px 8px!important}.legend span{font-size:8px!important}}
+
+/* Rafi 2.0.3 — approved header corrections; no backend changes */
+.mobile-theme-switch,.mobile-club-picker{display:none}
+@media(max-width:700px){
+ .top{grid-template-columns:minmax(0,1fr) 96px minmax(0,1.35fr)!important;grid-template-rows:53px 62px!important;column-gap:7px!important;overflow:visible!important}
+ .mobile-brand{grid-column:1;grid-row:1}
+ .mobile-brand img{width:clamp(24px,7.8vw,38px)!important;height:43px!important}
+ .mobile-brand strong{font-size:clamp(24px,7.7vw,31px)!important}
+ .mobile-theme-switch{display:flex;grid-column:2;grid-row:1;align-items:center;justify-content:center;gap:4px;border:0;background:var(--soft);border-radius:999px;padding:5px 6px;height:35px;min-width:0;width:96px;color:var(--muted);cursor:pointer}
+ .mobile-theme-switch svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;flex:none}
+ .theme-track{width:38px;height:23px;display:flex;align-items:center;border-radius:999px;background:#F3A899;padding:3px;flex:none;transition:background .2s}
+ .theme-thumb{display:block;width:17px;height:17px;border-radius:50%;background:white;box-shadow:0 1px 4px #34445c22;transition:transform .2s}
+ .mobile-theme-switch[aria-checked="true"] .theme-track{background:#536A8B}
+ .mobile-theme-switch[aria-checked="true"] .theme-thumb{transform:translateX(15px)}
+ .mobile-club-picker{display:block;grid-column:3;grid-row:1;min-width:0;position:relative;z-index:30}
+ .mobile-club-trigger{display:flex;align-items:center;justify-content:flex-end;gap:5px;min-width:0;width:100%;border:0;background:transparent;padding:7px 0;color:var(--text);cursor:pointer}
+ .mobile-club-trigger span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:750;min-width:0;text-align:right}
+ .mobile-club-trigger svg{flex:none}
+ .mobile-club-trigger:disabled{opacity:.8;cursor:default}
+ .mobile-club-list{position:absolute;top:calc(100% + 8px);right:0;width:max(210px,100%);max-width:min(290px,calc(100vw - 30px));max-height:min(320px,65vh);overflow-y:auto;background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:0 14px 38px #15243c28;padding:7px;z-index:100}
+ .mobile-club-list[hidden]{display:none!important}
+ .mobile-club-option{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:12px;border:0;background:transparent;border-radius:13px;color:var(--text);font-size:13px;font-weight:550;text-align:left;cursor:pointer}
+ .mobile-club-option[aria-selected="true"]{background:var(--accent2);font-weight:750}
+ .mobile-club-option:hover{background:var(--soft)}
+ .club-check{color:#CF7666;font-size:17px}
+ .topright #club{display:none!important}
+ .global-search{grid-column:1/-1;grid-row:2;min-width:0!important}
+ .global-search input{font-size:clamp(14px,3.8vw,16px)!important;font-weight:500!important;line-height:1.35!important;letter-spacing:-.2px}
+ .global-search input::placeholder{color:var(--muted);opacity:1}
+ .find-button{display:flex!important;align-items:center!important;justify-content:center!important;flex:none!important;width:49px!important;height:49px!important;min-width:49px!important;min-height:49px!important;line-height:1!important;position:relative!important}
+ .mobile-search-arrow{display:flex!important;align-items:center!important;justify-content:center!important;width:23px!important;height:23px!important;line-height:0!important;flex:none!important}
+ .mobile-search-arrow svg{display:block!important;width:23px!important;height:23px!important;flex:none!important}
+}
+@media(max-width:360px){
+ .top{grid-template-columns:minmax(0,1fr) 84px minmax(0,1.2fr)!important;column-gap:4px!important}
+ .mobile-theme-switch{width:84px;gap:2px;padding:5px 3px}
+ .mobile-theme-switch svg{width:15px;height:15px}
+ .mobile-club-trigger span{font-size:11px}
+}
+
+/* Rafi 2.0.4 — changes agreed in the 11-point review only */
+[data-theme="dark"]{--bg:#101113;--surface:#1B1C1F;--soft:#26272A;--text:#F7F7F8;--muted:#B4B5BA;--border:#38393D;--sidebar:#151619;--sidebar-text:#E3E3E6;--accent2:#3B302E}
+/* No decorative outlines: separation through tonal surfaces and soft shadows. */
+.panel,.metric,.booking,.time-booking,.secondary,.monthnav button,.date,.modal,.global-search input,input:not([type=checkbox]):not([type=radio]),select,textarea,.zone-picks,.mobile-club-list,.mobile-bottom-nav{border:0!important;box-shadow:0 4px 18px rgba(28,39,56,.065)!important}
+[data-theme="dark"] .panel,[data-theme="dark"] .metric,[data-theme="dark"] .booking,[data-theme="dark"] .time-booking,[data-theme="dark"] .secondary,[data-theme="dark"] .date,[data-theme="dark"] input,[data-theme="dark"] select,[data-theme="dark"] textarea{box-shadow:0 5px 18px #0003!important}
+.date{background:var(--soft)}.date.selected{box-shadow:0 6px 16px #F3A8992b!important}.date.today:not(.selected){box-shadow:inset 0 0 0 1px #F3A89955!important}
+.date.empty{box-shadow:none!important}.day-event{border:0!important;border-left:5px solid #68B696!important}
+.sidebar{border-right:0!important}.sidebar-foot{border-top:0!important}.compact-checklist,.zone-picks{border:0!important}.layoutmap{border:0!important}.zone{border:0!important;box-shadow:0 2px 10px #0001}.plan-zone{border:0!important}
+/* Keep visible focus for keyboard navigation, but remove blue touch rectangles. */
+a,button{-webkit-tap-highlight-color:transparent}a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none!important;box-shadow:none}a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.mobile-account-toggle{display:flex!important;align-items:center;gap:11px;text-align:left!important;border-radius:16px!important;padding:11px!important}
+.account-avatar{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:var(--accent2);color:var(--text);flex:none}.account-person{display:grid;gap:2px;min-width:0;flex:1}.account-person strong{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.account-person small{font-size:11px;color:var(--muted)}.account-chevron{font-size:19px}.mobile-account-actions[hidden]{display:none!important}
+.mobile-account-actions{display:grid;gap:7px;padding:2px 0 0}.mobile-account-actions button{border:0!important;box-shadow:0 2px 9px #00000008!important}
+.developer .calendar-nav{display:flex!important}
+.developer #mobileNewBooking,.developer #mobileDayPlus,.developer #dayadd,.developer .date-plus,.developer #globalAdd{display:none!important}
+.developer .date-plus{pointer-events:none}
+.developer .readonly-note{display:block}.readonly-note{display:none;margin:12px 0 0;padding:11px 14px;border-radius:14px;background:var(--soft);font-size:12px;color:var(--muted)}
+@media(max-width:700px){
+ .top{grid-template-rows:53px!important}
+ .global-search{display:none!important}
+ .sidebar .nav [data-page="map"],.sidebar .nav [data-page="search"],.sidebar .nav [data-page="clubs"],.sidebar .nav [data-page="calendar"]{display:none!important}
+ /* developer calendar is in bottom navigation, so it needn't repeat in More */
+ .sidebar .nav [data-page="dashboard"]{display:flex}
+ .mobile-utilities{margin-top:auto;display:flex!important}
+ .mobile-utilities .mobile-account-actions[hidden]{display:none!important}
+ .mobile-bottom-nav{border:0!important;box-shadow:0 -6px 24px #34445c10!important}
+ .mobile-brand{-webkit-tap-highlight-color:transparent}.mobile-brand:focus:not(:focus-visible){outline:none!important;box-shadow:none!important}
+ .day-panel .subhead{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px!important}
+ .day-panel .subhead>div:first-child{min-width:0}
+ .day-panel .subhead #statusfilter{width:auto!important;max-width:148px!important;min-width:0;height:36px;font-size:11px!important;color:var(--text)!important;background:var(--surface)!important;padding:6px 22px 6px 10px!important;border:0!important;border-radius:999px!important;box-shadow:0 3px 12px #34445c12!important;text-overflow:ellipsis}
+ .mobile-day-plus{margin-left:0!important}
+ .layoutmap.image-plan{width:100%;max-width:100%;min-width:0!important;min-height:0!important;aspect-ratio:1.7;overflow:hidden;border-radius:16px!important}
+ #page:has(#zonecanvas)>.panel{min-width:0;max-width:100%;overflow:hidden}
+ #zonecanvas .plan-zone{font-size:clamp(8px,2.4vw,13px);overflow-wrap:anywhere}
+ .plan-upload{min-width:0;max-width:100%;overflow-wrap:anywhere}
+ .plan-upload input[type=file]{max-width:100%;min-width:0}
+ .plan-upload button{max-width:100%}
+ .mobile-club-list{box-shadow:0 12px 30px #0002!important}
+}
+@media(max-width:390px){.day-panel .subhead #statusfilter{max-width:118px!important;font-size:10px!important}.day-panel .subhead h2{font-size:17px!important}}
+
+/* Rafi 2.0.5 — targeted refinements */
+.rafi-select{position:relative;min-width:0;width:100%}.catalog-search>.rafi-select{width:180px;flex:none}.rafi-select-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:41px;padding:9px 12px;border:0;border-radius:15px;background:var(--surface);color:var(--text);box-shadow:0 3px 13px #0000000b;text-align:left;font-size:13px}.rafi-select-trigger .rafi-select-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rafi-select-options{position:absolute;top:calc(100% + 5px);left:0;min-width:100%;width:max-content;max-width:min(320px,90vw);max-height:270px;overflow-y:auto;z-index:100;background:var(--surface);padding:6px;border-radius:16px;box-shadow:0 14px 34px #0003}.rafi-select-options[hidden]{display:none}.rafi-select-option{display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px;padding:10px 11px;border:0;border-radius:11px;background:transparent;color:var(--text);font-size:13px;text-align:left;white-space:nowrap}.rafi-select-option:hover,.rafi-select-option[aria-selected="true"]{background:var(--accent2)}.rafi-select-option[aria-selected="true"]:after{content:'✓';color:#d47e6c}.rafi-select select{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;left:0;top:0;padding:0!important;box-shadow:none!important}.rafi-select:focus-within .rafi-select-trigger{outline:2px solid #F3A89966;outline-offset:2px}.rafi-select.compact{width:auto;max-width:175px;flex:none}.rafi-select.compact .rafi-select-trigger{min-height:36px;padding:7px 10px;border-radius:999px;font-size:12px}.rafi-select.compact .rafi-select-options{right:0;left:auto;min-width:205px}.catalog-actions{display:flex;gap:7px;flex-wrap:wrap}.catalog-actions .primary,.catalog-actions .secondary{padding:8px 12px!important;font-size:12px!important;min-height:35px;border-radius:999px!important}.catalog-search .catalog-query-wrap{display:flex;flex:1;align-items:center;min-width:0;border-radius:999px;background:var(--surface);box-shadow:0 3px 13px #0000000b;padding:3px 4px 3px 12px}.catalog-search .catalog-query-wrap input{flex:1;min-width:0;border:0!important;box-shadow:none!important;background:transparent!important;outline:0!important;padding:9px 4px!important}.catalog-search .catalog-query-wrap .catalog-arrow{width:35px;height:35px;min-width:35px;border:0;border-radius:50%!important;background:#F3A899;color:#34445C;display:grid;place-items:center;padding:0!important;box-shadow:none!important}.catalog-search .catalog-query-wrap .catalog-arrow svg{width:19px;height:19px}.zone-pick{min-height:36px!important;padding:7px 11px!important;font-size:12px!important;gap:9px!important}.zone-pick input[type=checkbox]{width:14px!important;height:14px!important;min-width:14px!important;min-height:14px!important;flex-basis:14px!important;border-width:1.5px!important}.zone-pick input[type=checkbox]:checked{border-width:4px!important}.zone-pick:has(input:checked){background:color-mix(in srgb,var(--accent2) 50%,var(--surface))}.zone-picks{gap:3px!important}.map-datebar{display:flex;align-items:center;gap:7px;margin:0 0 16px;max-width:390px}.map-datebar>button{flex:none;width:36px;height:36px;border-radius:50%;border:0;background:var(--soft);color:var(--text)}.map-datebar input{flex:1;min-width:0;max-width:220px;padding:9px 12px!important}.zone-info-item{padding:12px;border-radius:14px;background:var(--soft);margin-top:9px}.zone-info-item strong{font-size:14px}.zone-info-item .muted{margin-top:5px}.developer .metrics{grid-template-columns:minmax(0,220px)!important}.developer .metrics .metric{min-height:90px}.developer #reminders{display:none!important}.developer .day-add{display:none!important}
+@media(max-width:700px){.catalog-search{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:9px!important}.catalog-search>.rafi-select{width:100%}.catalog-actions{justify-content:flex-end}.catalog-actions .primary,.catalog-actions .secondary{padding:7px 11px!important}.day-panel .subhead>.rafi-select{max-width:130px;min-width:0}.day-panel .subhead>.rafi-select .rafi-select-trigger{font-size:11px;padding:6px 8px}.map-datebar{width:100%}.developer .metrics{grid-template-columns:minmax(0,1fr)!important}#page:has(.calendar-panel)>#reminders:not(:empty){margin-top:16px!important}.reminders .upcoming-widget{margin-top:14px!important}}
+
+/* Rafi 2.0.6 — scoped visual fixes, preserve existing layout and palette */
+.setting-toggle input[data-widget]{appearance:none!important;-webkit-appearance:none!important;position:relative!important;width:37px!important;height:22px!important;min-width:37px!important;min-height:22px!important;flex:0 0 37px!important;border:0!important;border-radius:999px!important;background:color-mix(in srgb,var(--muted) 23%,var(--surface))!important;box-shadow:inset 0 0 0 1px #00000012!important;transition:background .16s ease;cursor:pointer}
+.setting-toggle input[data-widget]:checked{background:color-mix(in srgb,var(--text) 55%,var(--surface))!important}
+.setting-toggle input[data-widget]::after,.setting-toggle input[data-widget]:checked::after{content:""!important;position:absolute!important;top:3px!important;left:3px!important;width:16px!important;height:16px!important;border:0!important;border-radius:50%!important;background:var(--surface)!important;box-shadow:0 1px 3px #0003!important;transform:none!important;transition:transform .16s ease!important}
+.setting-toggle input[data-widget]:checked::after{transform:translateX(15px)!important}
+.setting-toggle input[data-widget]:focus-visible{outline:2px solid var(--accent)!important;outline-offset:3px!important}
+/* Only the catalog controls need extra separation in dark mode. */
+[data-theme="dark"] .catalog-search .catalog-query-wrap,[data-theme="dark"] .catalog-search .rafi-select-trigger{background:#2A2C30!important;box-shadow:0 4px 16px #0000002b!important}
+[data-theme="dark"] .catalog-search .catalog-query-wrap:focus-within,[data-theme="dark"] .catalog-search .rafi-select:focus-within .rafi-select-trigger{box-shadow:0 0 0 2px #F3A89955,0 4px 16px #0000002b!important}
+[data-theme="dark"] #catalogList .catalogrow{border-bottom-color:#42454B!important}
+[data-theme="dark"] #catalogList .catalogrow:last-child{border-bottom-color:transparent!important}
+/* Catalog filter and search should never squeeze the search field on desktop. */
+@media(min-width:701px){.catalog-search:has(#catalogCategory){display:grid!important;grid-template-columns:minmax(175px,220px) minmax(260px,1fr)!important;align-items:center!important}.catalog-search:has(#catalogCategory)>.rafi-select{width:100%!important}}
+@media(max-width:700px){.map-datebar input[type="date"]{text-align:center!important;text-align-last:center!important}.map-datebar input[type="date"]::-webkit-date-and-time-value{text-align:center!important}.map-datebar input[type="date"]::-webkit-datetime-edit{text-align:center!important}}
+/* Zone choices are checkboxes, not large radio circles. */
+.zone-pick input[type="checkbox"]{width:16px!important;height:16px!important;min-width:16px!important;min-height:16px!important;flex-basis:16px!important;border:1.5px solid var(--muted)!important;border-radius:5px!important;background:var(--surface)!important;position:relative!important}
+.zone-pick input[type="checkbox"]:checked{background:var(--accent)!important;border-color:var(--accent)!important}
+.zone-pick input[type="checkbox"]:checked::after{content:""!important;display:block!important;width:8px!important;height:4px!important;border-left:2px solid #34445C!important;border-bottom:2px solid #34445C!important;transform:translateY(-1px) rotate(-45deg)!important}
+
+/* Rafi 2.0.6: minimal, scoped refinements; preserve calendar styling */
+.day-panel .subhead{padding:4px 3px 13px;min-width:0}.day-panel .subhead h2{overflow-wrap:anywhere}.metric strong{overflow-wrap:anywhere}.detailrow{min-width:0}.detailrow strong{overflow-wrap:anywhere;min-width:0;text-align:right}
+
+.searchgrid .search-submit-arrow{width:42px;height:42px;min-width:42px;min-height:42px;border-radius:50%!important;padding:0!important;font-size:22px;align-self:end}
+@media(max-width:700px){.searchgrid .search-submit-arrow{width:42px;height:42px}}
+
+@media(min-width:701px){
+ .top{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:14px}
+ .top .global-search{flex:1 1 340px;max-width:560px;min-width:240px;position:relative;border-radius:999px!important;box-shadow:0 5px 20px #0000000b}
+ .top .global-search input{padding-right:57px!important;width:100%;min-width:0}
+ .top .find-button{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:37px!important;height:37px!important;min-width:37px!important;padding:0!important;border-radius:50%!important;display:grid;place-items:center}
+ .top .desktop-find-label{font-size:24px;line-height:1}
+ .topright{margin-left:auto;display:flex;align-items:center;flex-wrap:nowrap;gap:12px}
+ .topright>.rafi-select{max-width:210px;min-width:135px}
+ .topright .rafi-select-trigger{border-radius:999px!important;min-height:42px;white-space:nowrap}
+ #mobileThemeSwitch{display:flex!important;position:static!important;width:94px!important;min-width:94px!important;flex:0 0 94px!important;order:2}
+ .topright{order:3}
+ .sidebar .mobile-utilities{display:flex!important;margin-top:auto;padding:12px 8px 20px}
+ .sidebar .mobile-account-toggle{display:flex!important;align-items:center;width:100%;gap:12px;border:0;border-radius:15px;padding:11px;background:var(--soft);color:var(--text);text-align:left}
+ .sidebar .mobile-account-actions:not([hidden]){display:grid!important;gap:4px;padding:7px 9px}
+ .sidebar .mobile-account-actions button{border:0;border-radius:12px;padding:10px;text-align:left;background:var(--surface);color:var(--text)}
+}
+.rafi-dialog-back{position:fixed;inset:0;z-index:100000;background:#0009;display:grid;place-items:center;padding:16px}
+.rafi-dialog{width:min(440px,100%);padding:24px;border-radius:23px;background:var(--surface);color:var(--text);box-shadow:0 24px 75px #0005}
+.rafi-dialog h3{margin:0 0 12px;font-size:18px}.rafi-dialog p{white-space:pre-line;font-size:14px;line-height:1.55;color:var(--muted);margin:0 0 16px}
+.rafi-dialog input{width:100%;margin:6px 0 18px}.rafi-dialog .actions{justify-content:flex-end}
+#rafiToast{position:fixed;z-index:100001;right:20px;bottom:25px;max-width:min(420px,calc(100vw - 40px));background:var(--surface);color:var(--text);box-shadow:0 15px 50px #0004;padding:15px 20px;border-radius:17px;font-size:14px;white-space:pre-line;opacity:0;pointer-events:none;transform:translateY(12px);transition:.2s}
+#rafiToast.visible{opacity:1;transform:translateY(0)}
+.rafi-date-field{position:relative;min-width:0;flex:1}
+.rafi-date-field>input[type=date]{position:absolute!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important;left:0}
+.rafi-date-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:40px;padding:9px 12px;background:var(--surface);color:var(--text);border:0;border-radius:13px;box-shadow:0 3px 12px #0000000b;cursor:pointer;font:inherit}
+.rafi-date-trigger span{flex:1;text-align:center}
+.rafi-calendar-pop{position:absolute;z-index:5000;top:calc(100% + 6px);left:50%;transform:translateX(-50%);width:min(300px,calc(100vw - 30px));background:var(--surface);color:var(--text);border-radius:17px;padding:12px;box-shadow:0 18px 45px #0005}
+.rafi-calendar-nav{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.rafi-calendar-nav strong{font-size:13px;text-transform:capitalize}
+.rafi-calendar-nav button{background:var(--soft);color:var(--text);border:0;border-radius:9px;width:31px;height:31px;cursor:pointer}
+.rafi-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;text-align:center}.rafi-calendar-grid span{font-size:11px;color:var(--muted);padding:7px 0}
+.rafi-calendar-grid button{border:0;background:transparent;color:var(--text);border-radius:8px;aspect-ratio:1;cursor:pointer;font-size:12px}.rafi-calendar-grid button:hover{background:var(--soft)}.rafi-calendar-grid button.selected{background:#F3A899;color:#34445C}
+.booking-kind{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.booking-kind-option{display:flex!important;align-items:center;gap:7px!important;background:var(--soft);border-radius:999px;padding:9px 12px!important;font-size:12px!important;cursor:pointer}.booking-kind-option input{width:15px!important;height:15px!important;margin:0!important}
+.booking-optional[hidden]{display:none!important}.form-helper-row{display:flex;justify-content:flex-start;margin:8px 0 14px}.form-helper-row .secondary{font-size:12px!important;padding:7px 12px!important;border:0!important;box-shadow:none!important;background:var(--soft)!important}
+.lead-panel:empty{display:none}.lead-panel{margin:14px 0}.leads-section{padding:13px 18px!important}.lead-toggle{width:100%;border:0;background:transparent;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;padding:5px 0;font-weight:700}.lead-toggle span:last-child{color:var(--muted);font-size:12px;font-weight:500}.lead-entries{margin-top:10px}.lead-entries[hidden]{display:none!important}.lead-entry{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-top:1px solid var(--border)}.lead-entry small{display:block;color:var(--muted);margin-top:4px}.lead-entry .row{flex-wrap:nowrap}
+#bookingform .zone-pick{min-height:37px!important;padding:7px 12px!important}
+#bookingform .zone-pick input[type=checkbox]{appearance:none!important;width:16px!important;height:16px!important;flex:0 0 16px!important;border:1.5px solid var(--muted)!important;border-radius:5px!important;background:var(--surface)!important}
+#bookingform .zone-pick input[type=checkbox]:checked{background:#F3A899!important;border-color:#F3A899!important}
+#bookingform .zone-pick input[type=checkbox]:checked:after{content:'✓'!important;display:block!important;font-size:12px!important;line-height:14px!important;color:#34445C!important;text-align:center!important}
+.catalog-search{align-items:stretch!important}.catalog-search .catalog-query-wrap{min-width:0!important}.catalog-search .catalog-query-wrap input{width:100%!important;min-width:0!important}
+[data-theme=dark] .catalog-search .rafi-select-trigger,[data-theme=dark] .catalog-search .catalog-query-wrap,[data-theme=dark] .catalogrow{background:#27292D!important;box-shadow:0 5px 18px #0003!important}
+[data-theme=dark] .catalogrow{padding:12px!important;border-radius:13px;margin-bottom:7px}
+@media(max-width:700px){.map-datebar .rafi-date-field{min-width:0}.map-datebar .rafi-date-trigger{min-width:0;padding:8px 5px}.map-datebar .rafi-date-trigger span{text-align:center}.rafi-calendar-pop{left:50%}.lead-entry{flex-wrap:wrap}}
+
+/* Rafi 2.0.7: approved desktop header, preserve mobile layout and existing calendar */
+@media(min-width:701px){
+ .workspace>.top{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:52px 39px!important;align-items:center!important;gap:8px 10px!important;padding:10px 12px!important;background:var(--surface)!important;border-radius:19px!important;margin-bottom:15px!important;box-shadow:0 5px 22px #00000012!important}
+ .top>.global-search{grid-column:1!important;grid-row:1!important;max-width:none!important;width:100%!important;min-width:0!important;align-self:stretch!important;margin:0!important}
+ .top .global-search input{height:100%!important;min-height:46px!important;background:var(--soft)!important;border:0!important;border-radius:999px!important;padding-left:34px!important;padding-right:93px!important}
+ .top .mobile-search-icon{display:flex!important;position:absolute!important;left:13px!important;top:50%!important;transform:translateY(-50%)!important;z-index:1!important}
+ .top .mobile-search-icon svg{width:15px!important;height:15px!important}
+ .top .find-button{width:35px!important;height:35px!important;right:6px!important;background:var(--accent)!important;color:#34445C!important;box-shadow:none!important}
+ .top .mobile-search-arrow{display:flex!important;align-items:center!important;justify-content:center!important}
+ .top .desktop-find-label{display:none!important}
+ .top .topright{grid-column:2!important;grid-row:1 / span 2!important;display:contents!important}
+ .top .topright>.rafi-select{grid-column:2!important;grid-row:1!important;min-width:150px!important;max-width:240px!important;width:auto!important}
+ .top .topright .rafi-select-trigger{background:var(--soft)!important;border:0!important;box-shadow:none!important;border-radius:999px!important;min-height:45px!important}
+ .top #mobileThemeSwitch{grid-column:1!important;grid-row:2!important;justify-self:start!important;display:flex!important;order:initial!important;width:100px!important;min-width:100px!important;height:35px!important;background:transparent!important;padding:2px 5px!important;gap:5px!important}
+ .top #mobileThemeSwitch svg{width:17px!important;height:17px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.7!important}
+ .top #mobileThemeSwitch .theme-track{width:38px!important;height:23px!important;display:flex!important;align-items:center!important;border-radius:999px!important;background:#F3A899!important;padding:3px!important}
+ .top #mobileThemeSwitch .theme-thumb{display:block!important;width:17px!important;height:17px!important;border-radius:50%!important;background:#fff!important;transition:transform .2s!important}
+ .top #mobileThemeSwitch[aria-checked="true"] .theme-track{background:#536A8B!important}
+ .top #mobileThemeSwitch[aria-checked="true"] .theme-thumb{transform:translateX(15px)!important}
+ .top #globalAdd{grid-column:2!important;grid-row:2!important;justify-self:end!important;padding:9px 15px!important;min-height:35px!important;border-radius:999px!important;font-size:12px!important}
+ .sidebar .mobile-utilities{position:relative!important;display:flex!important;flex-direction:column!important;gap:0!important;overflow:visible!important}
+ .sidebar .mobile-account-actions:not([hidden]){position:static!important;display:grid!important;transform:none!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;width:100%!important;box-shadow:none!important;background:transparent!important;padding:6px 0!important}
+ .sidebar .mobile-account-actions button{width:100%!important;text-align:left!important}
+}
+.global-search-clear{position:absolute;right:48px;top:50%;transform:translateY(-50%);z-index:4;border:0!important;background:transparent!important;color:var(--muted)!important;border-radius:50%;font-size:21px;line-height:1;width:27px;height:27px;padding:0;cursor:pointer}
+.global-search-clear[hidden]{display:none!important}
+@media(max-width:700px){.global-search-clear{right:53px}.mobile-bottom-nav{background:var(--surface)!important;box-shadow:0 -9px 26px #00000029!important}[data-theme="dark"] .mobile-bottom-nav{background:#292B30!important;box-shadow:0 -8px 30px #0008!important}}
+/* Club management: consistent button order and card heights */
+.manager-grid{align-items:stretch!important}.club-manager-card{display:flex!important;flex-direction:column!important;min-width:0!important}.club-manager-card>.row{align-items:flex-start!important;gap:12px!important}.club-manager-card>.row>div{min-width:0!important;flex:1!important}.club-manager-card h3{overflow-wrap:anywhere!important}.club-manager-card .manager-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;margin-top:auto!important;padding-top:18px!important}.club-manager-card .manager-actions button{width:100%!important;min-width:0!important;margin:0!important;white-space:normal!important;min-height:36px!important;padding:9px 8px!important;text-align:center!important;border-radius:12px!important}.club-manager-card [data-selectclub]{grid-column:1/-1!important}.club-manager-card [data-deleteclub]{grid-column:1/-1!important;background:transparent!important;color:var(--muted)!important;box-shadow:none!important;text-align:left!important;padding-left:5px!important}
+/* Readable resting-state inputs in dark theme: only form controls, not calendar */
+[data-theme="dark"] .modal input:not([type=checkbox]):not([type=radio]):not([type=hidden]),[data-theme="dark"] .modal textarea,[data-theme="dark"] #inlinefinance input,[data-theme="dark"] .panel input:not([type=checkbox]):not([type=radio]):not([type=hidden]){background:#2C2E33!important;color:#F2F3F5!important;box-shadow:inset 0 1px 3px #0002,0 4px 14px #0003!important;border:0!important;border-radius:12px!important;padding-left:13px!important;padding-right:13px!important}
+[data-theme="dark"] .modal input:focus,[data-theme="dark"] .panel input:focus{box-shadow:0 0 0 2px #F3A89988,0 4px 15px #0003!important}
+/* Zone multi-select: native checkbox visually hidden, only one toggle per zone */
+#bookingform .zone-picks{display:grid!important;gap:7px!important}
+#bookingform .zone-pick{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:43px!important;background:var(--soft)!important;border:0!important;border-radius:13px!important;padding:9px 12px!important;cursor:pointer!important;color:var(--text)!important}
+#bookingform .zone-pick input[type=checkbox]{position:absolute!important;opacity:0!important;width:1px!important;height:1px!important;min-width:1px!important;min-height:1px!important;pointer-events:none!important;appearance:none!important}
+#bookingform .zone-pick .zone-pick-name{flex:1!important;font-size:13px!important}
+#bookingform .zone-switch{display:flex!important;align-items:center!important;width:37px!important;height:22px!important;min-width:37px!important;flex:0 0 37px!important;border-radius:999px!important;background:#74777F!important;padding:3px!important;transition:background .2s!important}
+#bookingform .zone-switch-thumb{width:16px!important;height:16px!important;background:#FFF!important;border-radius:50%!important;box-shadow:0 1px 3px #0003!important;transition:transform .2s!important}
+#bookingform .zone-pick input:checked~.zone-switch{background:#F3A899!important}
+#bookingform .zone-pick input:checked~.zone-switch .zone-switch-thumb{transform:translateX(15px)!important}
+#bookingform .zone-pick:focus-within{outline:2px solid var(--accent)!important;outline-offset:2px!important}
+/* Custom time picker replaces browser time picker while preserving form input value */
+.rafi-time-field{position:relative;min-width:0}.rafi-time-field>input[type=time]{position:absolute!important;opacity:0!important;width:1px!important;height:1px!important;pointer-events:none!important}
+.rafi-time-trigger{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:42px;background:var(--soft);color:var(--text);border:0;border-radius:12px;padding:10px 13px;text-align:left;font:inherit;cursor:pointer;box-shadow:0 4px 14px #0001}
+.rafi-time-pop{position:absolute;z-index:6000;top:calc(100% + 6px);left:0;width:min(290px,calc(100vw - 55px));padding:13px;background:var(--surface);color:var(--text);border-radius:17px;box-shadow:0 16px 45px #0007}
+.rafi-time-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:750;margin-bottom:9px}.rafi-time-head button{border:0;background:transparent;color:var(--text);font-size:20px}
+.rafi-time-cols{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:10px}.rafi-time-cols small{display:block;color:var(--muted);margin-bottom:6px}.rafi-time-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;max-height:180px;overflow-y:auto}.rafi-time-grid.minutes{grid-template-columns:repeat(2,minmax(0,1fr))}.rafi-time-grid button{padding:7px 2px;border:0;border-radius:8px;background:var(--soft);color:var(--text);font-size:12px}.rafi-time-grid button.active{background:var(--accent);color:#34445C}.rafi-time-done{width:100%;border:0;border-radius:12px;padding:10px;background:var(--accent);color:#34445C;font-weight:750;margin-top:10px}
+
+
+/* Rafi 2.0.8 — narrowly scoped interface corrections */
+/* 1. Search-page submit button: readable label instead of a floating arrow */
+.searchgrid .search-submit-arrow{width:auto!important;min-width:96px!important;height:42px!important;min-height:42px!important;padding:0 19px!important;border-radius:999px!important;font-size:13px!important;font-weight:700!important;white-space:nowrap!important}
+/* 2. Calendar add affordance on desktop only */
+@media(min-width:701px){body:not(.developer) .calendar .date:not(.past-date) .date-plus:hover{background:#F3A899!important;color:#34445C!important;box-shadow:0 3px 12px #F3A89955!important;opacity:1!important}}
+/* 3. Visible date input inside booking modal, without heavy borders */
+[data-theme="dark"] #bookingform .rafi-date-trigger{background:#303136!important;box-shadow:inset 0 1px 2px #0002,0 5px 16px #0004!important;color:#F7F7F8!important}
+/* 4. No white square surrounding theme control, regardless of role */
+.top #mobileThemeSwitch{border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;appearance:none!important}
+.top #mobileThemeSwitch:focus-visible{outline:2px solid #F3A899!important;outline-offset:3px!important;border-radius:999px!important}
+/* 5. The custom select wrapper must be hidden on phones, not just its native select */
+@media(max-width:700px){
+ .topright>.rafi-select,.topright>#club{display:none!important}
+ .topright{display:none!important}
+ .mobile-club-trigger span{font-family:Manrope,system-ui,sans-serif!important;font-size:clamp(12px,3.6vw,14px)!important;font-weight:650!important;letter-spacing:-.15px!important}
+ .developer-month-stat{display:none!important}
+}
+/* 6. Developer header: one compact row; stats capsule beside club selector */
+.developer-month-stat{display:none;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:12px;font-weight:600;white-space:nowrap;min-height:39px}
+.developer-month-stat[hidden]{display:none!important}
+.developer-month-stat strong{font-size:14px;font-weight:750;color:#F3A899;font-variant-numeric:tabular-nums}
+.developer-month-stat svg{flex:none;opacity:.8}
+@media(min-width:701px){
+ body.developer .workspace>.top{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:62px!important;height:auto!important;padding:10px 16px!important;grid-template-columns:none!important;grid-template-rows:none!important}
+ body.developer .top #mobileThemeSwitch{order:0!important;flex:0 0 100px!important;width:100px!important;min-width:100px!important;height:35px!important;margin:0!important}
+ body.developer .developer-month-stat:not([hidden]){display:inline-flex!important;order:1!important;margin-left:auto!important}
+ body.developer .top .topright{display:flex!important;order:2!important;flex:0 0 auto!important;align-items:center!important;gap:0!important;margin:0!important}
+ body.developer .top .topright>.rafi-select{display:block!important;min-width:150px!important;max-width:235px!important;width:auto!important;margin:0!important}
+ body.developer .top .topright .rafi-select-trigger{min-height:39px!important;padding:8px 12px!important}
+ body.developer .metrics{display:none!important}
+}
+
+
+/* Rafi 2.0.8.1: stable desktop header for all pages and roles. */
+@media (min-width:701px) {
+  /* With no global search, use one row rather than keeping the old empty grid row. */
+  body:not(.developer) .workspace>.top.header-no-search {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto auto!important;
+    grid-template-rows:45px!important;
+    align-items:center!important;
+    gap:10px!important;
+    min-height:0!important;
+    padding:10px 12px!important;
+  }
+  body:not(.developer) .top.header-no-search #mobileThemeSwitch {
+    grid-column:1!important;grid-row:1!important;
+    justify-self:start!important;align-self:center!important;
+    margin:0!important;
+  }
+  body:not(.developer) .top.header-no-search .topright>.rafi-select {
+    grid-column:2!important;grid-row:1!important;
+    justify-self:end!important;align-self:center!important;
+    margin:0!important;
+  }
+  body:not(.developer) .top.header-no-search #globalAdd {
+    grid-column:3!important;grid-row:1!important;
+    justify-self:end!important;align-self:center!important;
+    margin:0!important;
+  }
+  /* Developer: align switch, statistics and club selector on one axis. */
+  body.developer .workspace>.top {
+    display:flex!important;
+    flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:12px!important;
+    padding:10px 16px!important;
+    min-height:60px!important;
+  }
+  body.developer .top #mobileThemeSwitch {
+    position:static!important;
+    display:inline-flex!important;
+    flex:0 0 auto!important;
+    align-self:center!important;
+    justify-self:auto!important;
+    vertical-align:middle!important;
+    margin:0!important;
+    padding:2px 5px!important;
+    line-height:1!important;
+    height:35px!important;
+    transform:none!important;
+  }
+  body.developer .top .developer-month-stat:not([hidden]) {
+    align-self:center!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+  body.developer .top .topright,
+  body.developer .top .topright>.rafi-select {
+    align-self:center!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+}
+
+/* Rafi 2.0.8.2: optical vertical alignment of the theme switch.
+   Apply equally to administrator and developer desktop headers. */
+@media (min-width:701px) {
+  .workspace>.top #mobileThemeSwitch {
+    transform:translateY(3px)!important;
+  }
+}
+/* Rafi 2.0.8.3: visually center sun and moon against the desktop theme track. */
+@media (min-width:701px) {
+  .workspace>.top #mobileThemeSwitch .theme-sun,
+  .workspace>.top #mobileThemeSwitch .theme-moon {
+    position:relative!important;
+    top:2px!important;
+  }
+}
+
+/* Rafi 2.0.8.4: keep the header at the same vertical position on short pages.
+   .workspace originally uses margin:auto inside a min-height:100vh flex shell,
+   which vertically centers the entire workspace when page content is short. */
+.app-shell > .workspace {
+  margin-top:0!important;
+  margin-bottom:0!important;
+}
+
+/* Mobile: unobtrusive back-to-top control above the bottom navigation. */
+.mobile-back-to-top{display:none}
+@media(max-width:700px){
+  .mobile-back-to-top{position:fixed;right:15px;bottom:calc(93px + env(safe-area-inset-bottom));z-index:29;width:43px;height:43px;display:grid;place-items:center;border:1px solid var(--border);border-radius:50%;background:var(--surface);color:var(--text);box-shadow:0 5px 22px #17253a24;opacity:0;visibility:hidden;transform:translateY(9px);pointer-events:none;transition:opacity .18s ease,transform .18s ease,visibility .18s ease}
+  .mobile-back-to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .mobile-back-to-top svg{width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+}
+@media(prefers-reduced-motion:reduce){.mobile-back-to-top{transition:none}}
+
+/* Rafi interactive floor plan: original artwork is never altered. */
+.rafi-interactive-plan{aspect-ratio:auto!important;min-height:180px!important;background-image:none!important;position:relative;overflow:hidden}
+.rafi-interactive-plan>img{position:relative;inset:auto;display:block;width:100%;height:auto;max-width:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.rafi-interactive-plan #planOverlay{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rafi-interactive-plan:not(.has-image) #planOverlay{display:none}
+.rafi-interactive-plan .plan-no-image{padding:70px 12px;text-align:center;color:var(--muted)}
+.rafi-interactive-plan .plan-no-image[hidden]{display:none}
+.plan-polygon{fill:transparent;stroke:transparent;stroke-width:.4;cursor:pointer;transition:fill .18s,stroke .18s;vector-effect:non-scaling-stroke;outline:none}
+.plan-polygon:hover,.plan-polygon:focus-visible{fill:#F3A89955;stroke:transparent;stroke-width:0;filter:drop-shadow(0 0 9px #F3A89988)}
+.developer .plan-polygon.editing{fill:#F3A89922;stroke:#F3A899;stroke-width:1.6;stroke-dasharray:5 3}
+.developer .plan-polygon.editing:hover{fill:#F3A89966}
+#planDraft{fill:none;stroke:#F3A899;stroke-width:2;stroke-linejoin:round;stroke-dasharray:5 3;pointer-events:none;vector-effect:non-scaling-stroke}
+#planOverlay.drawing{cursor:crosshair}
+#planOverlay.drawing .plan-polygon{pointer-events:none}
+.plan-editor{display:flex;align-items:end;gap:9px;flex-wrap:wrap;margin:15px 0}
+.plan-editor label{margin:0;flex:0 0 100%}.plan-editor select{width:min(240px,100%)}
+.plan-editor button{white-space:nowrap}
+@media(max-width:700px){.plan-editor{gap:7px}.plan-editor select{width:100%}.plan-editor button{flex:1}}
+.plan-editor>.rafi-select{width:min(240px,100%);flex:0 1 240px}.plan-editor>.rafi-select select{width:100%}@media(max-width:700px){.plan-editor>.rafi-select{width:100%;flex:1 1 100%}}
+
+/* Rafi brand refinement: balanced horizontal wordmark (sidebar + mobile). */
+.sidebar-brand .brand.brand-home{display:inline-flex;align-items:center;gap:6px;line-height:1;white-space:nowrap}
+.sidebar-brand .brand.brand-home .rafi-brand-icon{width:53px;height:58px;object-fit:contain;flex:none}
+.sidebar-brand .brand.brand-home span{display:inline-block;line-height:1;transform:translateY(1px)}
+.sidebar-brand .sidebar-caption{margin-left:59px}
+@media(max-width:700px){
+ .sidebar-brand .brand.brand-home .rafi-brand-icon{width:47px;height:52px}
+ .sidebar-brand .sidebar-caption{margin-left:53px}
+ .mobile-brand{gap:4px}
+ .mobile-brand img{filter:none!important;width:clamp(29px,9vw,43px)!important;height:46px!important;object-fit:contain}
+ .mobile-brand strong{line-height:1;transform:translateY(1px)}
+}
+
+/* Rafi brand v3: exact horizontal reference, unified optical baseline. */
+.sidebar-brand .brand.brand-home{display:inline-flex;align-items:center;gap:0;max-width:100%;background:transparent;border-radius:0;padding:0}
+.sidebar-brand .brand.brand-home .rafi-brand-wordmark{display:block;width:144px;height:auto;max-width:100%;object-fit:contain;filter:none!important}
+.mobile-brand{background:transparent;border-radius:0;padding:0}.mobile-brand .rafi-mobile-wordmark{display:block;width:108px;height:auto;max-width:100%;object-fit:contain;filter:none!important}
+@media(max-width:700px){.mobile-brand{gap:0!important}.mobile-brand{background:transparent;border-radius:0;padding:0}.mobile-brand .rafi-mobile-wordmark{width:clamp(93px,27vw,108px)!important;height:auto!important}}
+
+/* Transparent wordmark; on light headers, maintain contrast without a background panel. */
+.mobile-brand .rafi-mobile-wordmark{filter:none!important}
+[data-theme="dark"] .mobile-brand .rafi-mobile-wordmark{filter:none!important}
+
+/* Rafi wordmark: slate lettering in light mode, original white in dark mode. */
+[data-theme="dark"] .rafi-brand-wordmark,[data-theme="dark"] .rafi-mobile-wordmark{content:url("/rafi_wordmark_clean.png?v=8")!important}
+</style><link rel="stylesheet" href="./rafi-v3.css?v=2.1.0-theme16"><link rel="stylesheet" href="./layout14.css?v=1"><link rel="stylesheet" href="./tools15.css?v=1"><link rel="stylesheet" href="./theme16.css?v=1"></head><body><button class="mobile-toggle" id="mobiletoggle" aria-label="Открыть меню">☰</button><div class="app-shell"><aside class="sidebar" id="sidebar"><div class="sidebar-brand"><a class="brand brand-home" id="homeLogo" href="#calendar" aria-label="На главную"><img class="rafi-brand-wordmark" src="./rafi_wordmark_light.png?v=1" alt="Rafi"></a><div class="sidebar-caption">Управление площадками<br>и событиями</div></div><nav class="nav"><button class="active calendar-nav" data-page="calendar"><span class="navdot"></span>Бронирования</button><button data-page="search" class="admin-only"><span class="navdot"></span>Поиск и клиенты</button><button data-page="map"><span class="navdot"></span>Зоны клуба</button><button data-page="menu"><span class="navdot"></span>Меню</button><button data-page="services"><span class="navdot"></span>Услуги</button><button data-page="clubs" class="developer-only"><span class="navdot"></span>Менеджер клубов</button><button data-page="dashboard" class="developer-only"><span class="navdot"></span>Настройка главного экрана</button></nav><div class="mobile-utilities"><button type="button" id="mobileAccountToggle" class="mobile-account-toggle" aria-expanded="false" aria-controls="mobileAccountActions"><span class="account-avatar" aria-hidden="true">◉</span><span class="account-person"><strong id="mobileAccountName">Пользователь</strong><small id="mobileAccountRole">Аккаунт</small></span><span class="account-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="mobile-account-actions" id="mobileAccountActions" hidden><button type="button" id="mobilePassword">Сменить пароль</button><button type="button" id="mobileLogout">Выйти из аккаунта</button></div></div><div class="sidebar-foot">Rafi · Больше возможностей для ваших событий<br><small>Локальная версия · доступ по логину</small></div></aside><main class="workspace"><header class="top"><a href="#calendar" id="mobileBrand" class="mobile-brand" aria-label="Rafi — на главную"><img class="rafi-mobile-wordmark" src="./rafi_wordmark_light.png?v=1" alt="Rafi"></a><form class="global-search admin-only" id="globalSearchForm"><span class="mobile-search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.3 16.3 5 5"/></svg></span><input id="globalSearch" aria-label="Поиск банкетов" placeholder="Поиск по имени или телефону"><button type="button" id="globalSearchClear" class="global-search-clear" aria-label="Очистить поиск" hidden>×</button><button type="submit" class="primary find-button" aria-label="Найти"><span class="desktop-find-label" aria-hidden="true">→</span><span class="mobile-search-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></span></button></form><button type="button" id="mobileThemeSwitch" class="mobile-theme-switch" role="switch" aria-checked="false" aria-label="Тёмная тема" title="Переключить светлую и тёмную темы"><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><span class="theme-track"><span class="theme-thumb"></span></span><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.7 8.7 0 0 1 9.5 3.5 8.8 8.8 0 1 0 20.5 14.5Z"/></svg></button><div class="mobile-club-picker" id="mobileClubPicker"><button type="button" class="mobile-club-trigger" id="mobileClubTrigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="mobileClubList"><span id="mobileClubName"></span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="mobile-club-list" id="mobileClubList" role="listbox" aria-label="Выбрать клуб" hidden></div></div><div id="developerMonthStat" class="developer-month-stat" hidden aria-live="polite"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/></svg><span>За месяц</span><strong id="developerMonthCount">0</strong></div><div class="topright"><select id="club" aria-label="Клуб"></select><select id="role" aria-label="Режим"><option value="admin">Администратор</option><option value="developer">Разработчик (демо)</option></select><button class="secondary" id="theme" title="Сменить тему" aria-label="Сменить тему" hidden>☾</button><button class="primary top-add admin-only" id="globalAdd">+ Новый банкет</button></div></header><div id="page"></div><div class="footer">Rafi · Управление площадками и событиями</div></main></div><nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Навигация на телефоне"><button type="button" class="admin-tab active" data-mobile-page="calendar"><span class="mobile-icon">▦</span>Календарь</button><button type="button" class="admin-tab" data-mobile-page="search"><span class="mobile-icon">⌕</span>Поиск</button><button type="button" class="admin-tab" data-mobile-page="map"><span class="mobile-icon">▧</span>Зоны</button><button type="button" class="dev-tab" data-mobile-page="calendar"><span class="mobile-icon">▦</span>Календарь</button><button type="button" class="dev-tab" data-mobile-page="clubs"><span class="mobile-icon">▤</span>Клубы</button><button type="button" class="dev-tab" data-mobile-page="map"><span class="mobile-icon">▧</span>Зоны</button><button type="button" id="mobileMore"><span class="mobile-icon">☰</span>Ещё</button></nav><button type="button" id="mobileBackToTop" class="mobile-back-to-top" aria-label="Наверх" title="Вернуться наверх"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 14 7-7 7 7"/></svg></button><div id="overlay" class="modalback hidden"><div class="modal" id="modal"><div class="modalhead"><h2 id="modaltitle"></h2><button class="x" id="close" aria-label="Закрыть">×</button></div><div id="modalcontent"></div></div></div>
+<script>
+const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0'),localDate=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`,iso=(day,time)=>`${day}T${time}`,niceDate=d=>d.slice(8,10)+'.'+d.slice(5,7)+'.'+d.slice(0,4),fmt=t=>t.slice(11,16),money=n=>Number(n||0).toLocaleString('ru-RU',{maximumFractionDigits:2})+' ₽',esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+let pageRenderVersion=0;
+let profile=null,zoneAssignments={},clubs=[],halls=[],bookings=[],clubId=null,month=new Date(new Date().getFullYear(),new Date().getMonth(),1),selected=localDate(new Date()),page='calendar',filter='all',editing=null,detailId=null,menu=[],services=[];
+
+const dev=()=>profile?.role==='DEVELOPER';
+const canEditCatalog=()=>['DEVELOPER','ADMIN','OWNER'].includes(profile?.role);
+function activeClubs(){return clubs.filter(c=>!c.archived)}
+function updateClubSelector(preferred=clubId){
+ const active=activeClubs();
+ if(!active.some(c=>c.id===preferred))preferred=active[0]?.id??null;
+ clubId=preferred;
+ $('club').innerHTML=active.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+ $('club').disabled=active.length<=1;
+ if(clubId!==null)$('club').value=String(clubId);
+ syncMobileClubPicker();
+ enhanceRafiSelects(document.querySelector('.topright'));document.querySelector('.topright .rafi-select')?._rafiUpdate?.();
+ return clubId;
+}
+function syncMobileClubPicker(){
+ const selected=$('club').selectedOptions[0];
+ $('mobileClubName').textContent=selected?.textContent||'Выбрать клуб';
+ const list=$('mobileClubList');
+ list.replaceChildren();
+ Array.from($('club').options).forEach(opt=>{
+  const button=document.createElement('button');
+  button.type='button';button.className='mobile-club-option';button.setAttribute('role','option');
+  button.setAttribute('aria-selected',String(opt.value===$('club').value));
+  button.textContent=opt.textContent;
+  if(opt.value===$('club').value){const tick=document.createElement('span');tick.className='club-check';tick.textContent='✓';button.appendChild(tick)}
+  button.addEventListener('click',()=>{
+   closeMobileClubPicker();
+   if($('club').value===opt.value)return;
+   $('club').value=opt.value;
+   $('club').dispatchEvent(new Event('change',{bubbles:true}));
+  });
+  list.appendChild(button);
+ });
+ $('mobileClubTrigger').disabled=$('club').disabled;
+}
+function closeMobileClubPicker(){
+ $('mobileClubList').hidden=true;
+ $('mobileClubTrigger').setAttribute('aria-expanded','false');
+}
+function syncMobileThemeSwitch(){
+ const dark=document.documentElement.dataset.theme==='dark';
+ $('mobileThemeSwitch').setAttribute('aria-checked',String(dark));
+ $('mobileThemeSwitch').setAttribute('aria-label',dark?'Включить светлую тему':'Включить тёмную тему');
+}
+async function refreshClubs(preferred=clubId){
+ clubs=await api('/clubs');
+ updateClubSelector(preferred);
+ // В режиме разработчика достаточно одного обновления менеджера клубов.
+ // Не запускаем reload(), который параллельно перерисовывает страницу.
+ if(dev()){
+  await renderClubs();
+ }else if(clubId!==null){
+  await reload();
+ }else{
+  halls=[];bookings=[];
+  $('page').innerHTML='<div class="emptymsg">Нет доступных клубов</div>';
+ }
+}
+
+const currentDashboard=()=>clubs.find(c=>c.id===clubId)||{showStats:true,showRevenue:true,showZones:true,showUpcoming:true,showReminders:true};
+const capitaliseSentences=text=>String(text).replace(/(^|[.!?]\s+)([a-zа-яё])/giu,(_,prefix,letter)=>prefix+letter.toLocaleUpperCase('ru-RU'));
+document.addEventListener('change',e=>{let el=e.target;if(!el.matches('input[type=text],input:not([type]),textarea'))return;if(/login|username|password|phone|search|email|url/i.test(el.id+' '+el.name))return;el.value=capitaliseSentences(el.value)});
+
+const csrf=()=>decodeURIComponent((document.cookie.match(/(?:^|; )XSRF-TOKEN=([^;]*)/)||[])[1]||'');
+
+
+function getCookie(name) {
+    const cookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(name + '='));
+
+    return cookie
+        ? decodeURIComponent(cookie.substring(name.length + 1))
+        : null;
+}
+
+
+
+
+async function api(path, options = {}) {
+    const method = (options.method || 'GET').toUpperCase();
+
+    const headers = {
+        'Content-Type': 'application/json',
+        ...options.headers
+    };
+
+    // Передаём CSRF-токен при изменении данных
+    if (!['GET', 'HEAD', 'OPTIONS', 'TRACE'].includes(method)) {
+        const token = getCookie('XSRF-TOKEN');
+
+        if (token) {
+            headers['X-XSRF-TOKEN'] = token;
+        }
+    }
+
+    const response = await fetch('/api' + path, {
+        ...options,
+        method,
+        headers,
+        credentials: 'same-origin',
+        cache: 'no-store'
+    });
+
+    const text = await response.text();
+    let data = null;
+
+    if (text.trim()) {
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            if (!response.ok) {
+                throw new Error('Ошибка сервера: HTTP ' + response.status);
+            }
+            throw new Error('Некорректный ответ сервера');
+        }
+    }
+
+    if (!response.ok) {
+        throw new Error(
+            data?.message ||
+            data?.detail ||
+            data?.error ||
+            'Ошибка запроса: HTTP ' + response.status
+        );
+    }
+
+    return data;
+}
+
+
+const rafiSelectIds=new Set(['club','catalogCategory','itemcategory','choosecat','item','statusfilter','hold','staffclub']);
+function enhanceRafiSelects(root=document){
+ root.querySelectorAll('select').forEach(sel=>{
+  if(sel.id==='role'||sel.closest('.rafi-select'))return;
+  const wrap=document.createElement('div');wrap.className='rafi-select'+(sel.id==='statusfilter'?' compact':'');
+  sel.parentNode.insertBefore(wrap,sel);wrap.appendChild(sel);
+  const trigger=document.createElement('button');trigger.type='button';trigger.className='rafi-select-trigger';trigger.setAttribute('aria-haspopup','listbox');trigger.setAttribute('aria-expanded','false');
+  const label=document.createElement('span');label.className='rafi-select-label';trigger.append(label);
+  const arrow=document.createElement('span');arrow.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';arrow.setAttribute('aria-hidden','true');trigger.append(arrow);
+  const opts=document.createElement('div');opts.className='rafi-select-options';opts.setAttribute('role','listbox');opts.hidden=true;
+  wrap.append(trigger,opts);
+  function update(){label.textContent=sel.selectedOptions[0]?.textContent||'Выбрать';opts.replaceChildren();Array.from(sel.options).filter(o=>!o.hidden&&!o.disabled).forEach(o=>{const b=document.createElement('button');b.type='button';b.className='rafi-select-option';b.setAttribute('role','option');b.setAttribute('aria-selected',String(o.value===sel.value));b.textContent=o.textContent;b.onclick=()=>{sel.value=o.value;sel.dispatchEvent(new Event('change',{bubbles:true}));close();update()};opts.append(b)})}
+  function close(){opts.hidden=true;trigger.setAttribute('aria-expanded','false')}
+  trigger.onclick=()=>{const wasOpen=!opts.hidden;document.querySelectorAll('.rafi-select-options').forEach(e=>e.hidden=true);opts.hidden=wasOpen;trigger.setAttribute('aria-expanded',String(!opts.hidden));if(!opts.hidden)update()};
+  sel.addEventListener('change',update);wrap._rafiUpdate=update;update();
+ });
+}
+document.addEventListener('pointerdown',e=>{document.querySelectorAll('.rafi-select').forEach(w=>{if(!w.contains(e.target)){const list=w.querySelector('.rafi-select-options');list.hidden=true;w.querySelector('.rafi-select-trigger').setAttribute('aria-expanded','false')}})});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.rafi-select-options').forEach(o=>o.hidden=true)});
+
+function rafiNotice(message){
+ let toast=document.getElementById('rafiToast');if(!toast){toast=document.createElement('div');toast.id='rafiToast';toast.setAttribute('role','status');document.body.append(toast)}
+ toast.textContent=String(message);toast.classList.add('visible');clearTimeout(rafiNotice.timer);rafiNotice.timer=setTimeout(()=>toast.classList.remove('visible'),4800);
+}
+const notify=e=>rafiNotice(e?.message||String(e));
+function enhanceRafiDates(root=document){
+ root.querySelectorAll('input[type="date"]').forEach(inp=>{
+  if(inp.dataset.rafiCalendar)return;inp.dataset.rafiCalendar='1';
+  const wrapper=document.createElement('div');wrapper.className='rafi-date-field';inp.parentNode.insertBefore(wrapper,inp);wrapper.append(inp);
+  const btn=document.createElement('button');btn.type='button';btn.className='rafi-date-trigger';
+  const update=()=>{const d=inp.value;btn.innerHTML=`<span>${d?d.slice(8,10)+'.'+d.slice(5,7)+'.'+d.slice(0,4):'Выбрать дату'}</span><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 10h18"/></svg>`};
+  wrapper.append(btn);update();inp.addEventListener('change',update);
+  btn.onclick=()=>{
+   document.querySelectorAll('.rafi-calendar-pop').forEach(x=>x.remove());
+   let view=new Date((inp.value||localDate(new Date()))+'T12:00:00');
+   const pop=document.createElement('div');pop.className='rafi-calendar-pop';wrapper.append(pop);
+   const paint=()=>{
+    const y=view.getFullYear(),m=view.getMonth(),days=new Date(y,m+1,0).getDate(),offset=(new Date(y,m,1).getDay()+6)%7;
+    pop.innerHTML=`<div class="rafi-calendar-nav"><button type="button" data-cprev aria-label="Предыдущий месяц">‹</button><strong>${new Date(y,m,1).toLocaleDateString('ru-RU',{month:'long',year:'numeric'})}</strong><button type="button" data-cnext aria-label="Следующий месяц">›</button></div><div class="rafi-calendar-grid">${['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(d=>`<span>${d}</span>`).join('')}${'<i></i>'.repeat(offset)}${Array.from({length:days},(_,i)=>{const d=localDate(new Date(y,m,i+1));return `<button type="button" data-cdate="${d}" class="${d===inp.value?'selected':''}">${i+1}</button>`}).join('')}</div>`;
+    pop.querySelector('[data-cprev]').onclick=()=>{view=new Date(y,m-1,1);paint()};pop.querySelector('[data-cnext]').onclick=()=>{view=new Date(y,m+1,1);paint()};
+    pop.querySelectorAll('[data-cdate]').forEach(el=>el.onclick=()=>{inp.value=el.dataset.cdate;inp.dispatchEvent(new Event('change',{bubbles:true}));pop.remove()});
+   };paint();
+   setTimeout(()=>document.addEventListener('pointerdown',function outside(e){if(!wrapper.contains(e.target)){pop.remove();document.removeEventListener('pointerdown',outside)}}),0);
+  };
+ });
+}
+
+function enhanceRafiTimes(root=document){
+ root.querySelectorAll('input[type="time"]').forEach(inp=>{
+  if(inp.dataset.rafiTime)return;
+  inp.dataset.rafiTime='1';
+  const wrap=document.createElement('div');wrap.className='rafi-time-field';inp.before(wrap);wrap.append(inp);
+  const trigger=document.createElement('button');trigger.type='button';trigger.className='rafi-time-trigger';trigger.setAttribute('aria-label','Выбрать время');
+  const label=document.createElement('span');const icon=document.createElement('span');icon.textContent='◷';icon.setAttribute('aria-hidden','true');trigger.append(label,icon);wrap.append(trigger);
+  const update=()=>{label.textContent=inp.value||'Выбрать время'};update();inp.addEventListener('change',update);
+  trigger.onclick=()=>{
+   document.querySelectorAll('.rafi-time-pop').forEach(p=>p.remove());
+   const pop=document.createElement('div');pop.className='rafi-time-pop';wrap.append(pop);
+   const parts=(inp.value||'14:00').split(':');let hour=Number(parts[0]),minute=Number(parts[1]);
+   const paint=()=>{
+    pop.innerHTML=`<div class="rafi-time-head">Выберите время <button type="button" data-time-close aria-label="Закрыть">×</button></div><div class="rafi-time-cols"><div><small>Часы</small><div class="rafi-time-grid">${Array.from({length:24},(_,h)=>`<button type="button" data-hour="${h}" class="${h===hour?'active':''}">${String(h).padStart(2,'0')}</button>`).join('')}</div></div><div><small>Минуты</small><div class="rafi-time-grid minutes">${Array.from({length:60/(Number(inp.step||900)/60)||4},(_,i)=>i*(Number(inp.step||900)/60)).filter(n=>n<60).map(m=>`<button type="button" data-minute="${m}" class="${m===minute?'active':''}">${String(m).padStart(2,'0')}</button>`).join('')}</div></div></div><button type="button" class="rafi-time-done">Готово · ${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}</button>`;
+    pop.querySelector('[data-time-close]').onclick=()=>pop.remove();
+    pop.querySelectorAll('[data-hour]').forEach(b=>b.onclick=()=>{hour=Number(b.dataset.hour);paint()});
+    pop.querySelectorAll('[data-minute]').forEach(b=>b.onclick=()=>{minute=Number(b.dataset.minute);paint()});
+    pop.querySelector('.rafi-time-done').onclick=()=>{inp.value=`${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}`;inp.dispatchEvent(new Event('change',{bubbles:true}));pop.remove()};
+   };paint();
+  };
+ });
+}
+document.addEventListener('pointerdown',e=>{document.querySelectorAll('.rafi-time-pop').forEach(p=>{if(!p.parentElement.contains(e.target))p.remove()})});
+
+function rafiDialog(title,description,defaultValue,mode='confirm'){
+ return new Promise(resolve=>{
+  const layer=document.createElement('div');layer.className='rafi-dialog-back';
+  const input=mode==='prompt'?`<input id="rafiDialogInput" maxlength="120" value="${esc(defaultValue??'')}" aria-label="${esc(title)}">`:'';
+  layer.innerHTML=`<div class="rafi-dialog" role="dialog" aria-modal="true"><h3>${esc(title)}</h3>${description?`<p>${esc(description)}</p>`:''}${input}<div class="actions"><button type="button" class="secondary" data-dialog="cancel">Отмена</button><button type="button" class="primary" data-dialog="ok">${mode==='confirm'?'Подтвердить':'Сохранить'}</button></div></div>`;
+  const done=value=>{document.removeEventListener('keydown',keyHandler);layer.remove();resolve(value)};
+  const keyHandler=e=>{if(e.key==='Escape')done(mode==='prompt'?null:false);if(e.key==='Enter'&&mode==='prompt')done(layer.querySelector('input').value)};
+  document.addEventListener('keydown',keyHandler);
+  layer.querySelector('[data-dialog="cancel"]').onclick=()=>done(mode==='prompt'?null:false);
+  layer.querySelector('[data-dialog="ok"]').onclick=()=>done(mode==='prompt'?layer.querySelector('input').value:true);
+  layer.onclick=e=>{if(e.target===layer)done(mode==='prompt'?null:false)};
+  document.body.append(layer);(layer.querySelector('input')||layer.querySelector('[data-dialog="ok"]')).focus();
+ });
+}
+const rafiConfirm=message=>rafiDialog('Подтверждение',message,null,'confirm');
+const rafiPrompt=(message,value='')=>rafiDialog(message,'',value,'prompt');
+const apiClub=path=>`/clubs/${clubId}${path}`;
+const zoneIds=b=>(b.zoneIds?.length?b.zoneIds:[b.hallId]);
+const occupies=b=>b.status!=='CANCELLED'&&!(b.status==='PRELIMINARY'&&b.holdUntil&&new Date(b.holdUntil)<new Date());
+const zoneNames=b=>zoneIds(b).map(id=>halls.find(h=>h.id===id)?.name||'Зона').join(', ');
+const shortDate=d=>d.slice(8,10)+'.'+d.slice(5,7)+'.'+d.slice(0,4);
+const isPast=d=>d<localDate(new Date());
+async function init(){profile=await api('/me');document.body.classList.toggle('developer',dev());$('mobileAccountName').textContent=profile.displayName||profile.username;$('mobileAccountRole').textContent=dev()?'Разработчик':'Администратор';$('role').style.display='none';$('role').insertAdjacentHTML('afterend',`<form id="desktopLogoutForm" action="/logout" method="post" hidden><input type="hidden" name="_csrf" value="${esc(csrf())}"></form>`);let saved=localStorage.getItem('kidsclub-theme');document.documentElement.dataset.theme=saved==='dark'?'dark':'light';$('theme').textContent=saved==='dark'?'☀':'☾';syncMobileThemeSwitch();clubs=await api('/clubs');if(!dev())clubs=clubs.filter(c=>(profile.clubIds||[profile.clubId]).includes(c.id));updateClubSelector(clubs[0]?.id);if(clubId!==null)await reload();else if(dev())navigate('clubs')}
+async function reload(){
+    applyClubTheme();
+    zoneAssignments={};
+    halls=await api(apiClub('/halls'));
+    await loadMonth();if(page==='map'&&!dev())await loadMapDate();
+}
+async function loadMonth(){clubs=await api('/clubs');bookings=await api(apiClub(`/bookings?year=${month.getFullYear()}&month=${month.getMonth()+1}`));render()}
+function dotStatus(b){return b.status==='FINISHED'?'finished':b.status==='CANCELLED'?'cancelled':b.status==='CONFIRMED'?'confirmed':'preliminary'}
+function status(b){return b.status==='FINISHED'?'Закончен':b.status==='CANCELLED'?'Отменено':b.status==='CONFIRMED'?'Подтверждено':new Date(b.holdUntil)<new Date()?'Срок истёк':'Предварительно'}
+async function navigate(to){if(bookingDirty&&!await rafiConfirm('Несохранённые изменения будут потеряны. Продолжить?'))return;bookingDirty=false;if(to==='map'&&!dev())loadMapDate().then(()=>{if(page==='map')renderMap()});pageRenderVersion++;if(dev()&&to==='search')to='calendar';page=to;document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.querySelectorAll('[data-mobile-page]').forEach(b=>b.classList.toggle('active',b.dataset.mobilePage===page));$('sidebar').classList.remove('open');render()}
+function render(){if(!clubId)return;const showHeaderSearch=!dev()&&page==='calendar';$('globalSearchForm').style.display=showHeaderSearch?'flex':'none';document.querySelector('.workspace>.top').classList.toggle('header-no-search',!showHeaderSearch);let fn={calendar:renderCalendar,search:renderSearch,menu:()=>renderCatalog('MENU'),services:()=>renderCatalog('SERVICE'),map:renderMap,clubs:renderClubs,accounts:renderClubs,dashboard:renderDashboard}[page];fn?.()}
+function renderCalendar(){
+ const title=month.toLocaleDateString('ru-RU',{month:'long',year:'numeric'}),start=(month.getDay()+6)%7,days=new Date(month.getFullYear(),month.getMonth()+1,0).getDate();
+ const monthItems=bookings;
+ let html=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(w=>`<div class="weekday">${w}</div>`).join('');
+ for(let i=0;i<start;i++)html+='<div class="date empty"></div>';
+ for(let d=1;d<=days;d++){
+  let key=localDate(new Date(month.getFullYear(),month.getMonth(),d)),items=bookings.filter(b=>b.startsAt.slice(0,10)===key&&(filter==='all'||b.status===filter));
+  html+=`<button class="date ${key===selected?'selected':''} ${key===localDate(new Date())?'today':''} ${isPast(key)?'past-date':''}" data-day="${key}" aria-label="${d}, банкетов: ${items.length}"><span class="date-head"><span class="number">${d}</span><span class="date-plus" ${isPast(key)?'style="display:none"':''} data-add-day="${key}" title="Добавить бронь" role="button" aria-label="Добавить бронь на ${d}">+</span></span><span class="dots">${items.map(b=>`<span class="status-dot ${dotStatus(b)}" title="${esc(b.clientName)} — ${status(b)}"></span>`).join('')}</span></button>`;
+ }
+ let items=monthItems.filter(b=>b.startsAt.slice(0,10)===selected&&(filter==='all'||b.status===filter)).sort((a,b)=>a.startsAt.localeCompare(b.startsAt));
+ const preliminary=monthItems.filter(b=>b.status==='PRELIMINARY').length;
+ const monthCount=monthItems.filter(b=>b.status!=='CANCELLED').length;
+ const headerStat=$('developerMonthStat');headerStat.hidden=!dev();$('developerMonthCount').textContent=String(monthCount);headerStat.title='Банкетов за '+title;
+ const grouped=items.map(b=>`<button class="time-booking day-event ${b.status==='CANCELLED'?'cancelled-booking':b.status==='FINISHED'?'finished-booking':''}" data-booking="${b.id}"><span class="time-label">${fmt(b.startsAt)}–${fmt(b.endsAt)}</span><span class="booking-name">${esc(b.clientName)}</span><span class="day-zone">${esc(zoneNames(b))}</span><span class="day-status ${dotStatus(b)}">${status(b)}</span></button>`).join('');
+ $('page').innerHTML=`<div class="heading"><div><h1>Бронирования</h1><div class="muted">${esc(title)} · клуб «${esc(clubs.find(c=>c.id===clubId)?.name||'')}»</div></div><button type="button" class="primary mobile-new-booking" id="mobileNewBooking">＋ Новый банкет</button></div><div id="reminders" class="reminders"></div><div id="leadPanel" class="lead-panel"></div><div class="metrics">${(dev()||currentDashboard().showStats!==false)?`<div class="metric"><span>Банкетов в месяце</span><strong>${monthItems.filter(b=>b.status!=='CANCELLED').length}</strong></div>${dev()?'':`<button type="button" class="metric metric-action" id="pendingmetric" aria-label="Открыть банкеты, ожидающие подтверждения"><span>Ждут подтверждения ↗</span><strong>${preliminary}</strong></button>`}`:''}${!dev()&&currentDashboard().showRevenue!==false?`<div class="metric"><span>Аренда (план)</span><strong>${money(monthItems.filter(b=>b.status!=='CANCELLED').reduce((sum,b)=>sum+Number(b.zoneRental||0),0))}</strong></div>`:''}${!dev()&&currentDashboard().showZones!==false?`<div class="metric"><span>Зон свободно на выбранную дату</span><strong>${halls.filter(h=>!monthItems.some(b=>occupies(b)&&b.startsAt.slice(0,10)===selected&&zoneIds(b).includes(h.id))).length} из ${halls.length}</strong></div>`:''}</div><div class="layout"><section class="panel calendar-panel"><div class="monthnav"><button id="prev" aria-label="Предыдущий месяц">‹</button><div class="monthname">${esc(title)}</div><button id="next" aria-label="Следующий месяц">›</button></div><div class="calendar">${html}</div><div class="legend"><span><i class="badge-dot confirmed"></i>Подтверждён</span><span><i class="badge-dot preliminary"></i>Предварительный</span><span><i class="badge-dot cancelled"></i>Отменён</span><span><i class="badge-dot finished"></i>Закончен</span></div></section><section class="panel day-panel"><div class="subhead"><div><h2>${niceDate(selected)}</h2><div class="muted">${items.length} бронирований</div></div><button type="button" class="mobile-day-plus" id="mobileDayPlus" aria-label="Добавить бронь на выбранный день">+</button><select id="statusfilter" aria-label="Фильтр статусов"><option value="all">Все статусы</option><option value="CONFIRMED">Подтверждённые</option><option value="PRELIMINARY">Предварительные</option><option value="FINISHED">Завершённые</option><option value="CANCELLED">Отменённые</option></select></div>${items.length?grouped:'<div class="emptymsg">На этот день бронирований нет</div>'}</section></div>`;
+ const calendarLayout=$('page').querySelector('.layout'),calendarMetrics=$('page').querySelector('.metrics');if(calendarLayout&&calendarMetrics)calendarLayout.after(calendarMetrics);if($('mobileNewBooking'))$('mobileNewBooking').onclick=()=>{if(!dev())form(null)};if($('mobileDayPlus')){$('mobileDayPlus').disabled=isPast(selected)||dev();$('mobileDayPlus').onclick=()=>{if(!dev())form(null)}}
+ loadReminders();renderLeads();if($('pendingmetric'))$('pendingmetric').onclick=()=>showPending();$('prev').onclick=()=>moveMonth(-1);$('next').onclick=()=>moveMonth(1);$('statusfilter').value=filter;$('statusfilter').onchange=e=>{filter=e.target.value;render()};enhanceRafiSelects($('page'));enhanceRafiDates($('page'));document.querySelectorAll('[data-day]').forEach(x=>x.onclick=()=>{selected=x.dataset.day;updateCalendarSelection()});document.querySelectorAll('[data-add-day]').forEach(x=>x.onclick=e=>{e.stopPropagation();selected=x.dataset.addDay;if(!dev()&&!isPast(selected))form(null)});document.querySelectorAll('[data-booking]').forEach(x=>x.onclick=()=>openDetail(Number(x.dataset.booking)));
+}
+
+
+// Selecting a day must not rebuild the calendar, header or async widgets:
+// doing so caused scroll anchoring jumps when reminders/leads arrived.
+function updateCalendarSelection(){
+ if(page!=='calendar')return;
+ document.querySelectorAll('#page [data-day]').forEach(el=>el.classList.toggle('selected',el.dataset.day===selected));
+ const items=bookings.filter(b=>b.startsAt.slice(0,10)===selected&&(filter==='all'||b.status===filter)).sort((a,b)=>a.startsAt.localeCompare(b.startsAt));
+ const panel=$('page').querySelector('.day-panel');if(!panel)return;
+ const grouped=items.map(b=>`<button class="time-booking day-event ${b.status==='CANCELLED'?'cancelled-booking':b.status==='FINISHED'?'finished-booking':''}" data-booking="${b.id}"><span class="time-label">${fmt(b.startsAt)}–${fmt(b.endsAt)}</span><span class="booking-name">${esc(b.clientName)}</span><span class="day-zone">${esc(zoneNames(b))}</span><span class="day-status ${dotStatus(b)}">${status(b)}</span></button>`).join('');
+ panel.innerHTML=`<div class="subhead"><div><h2>${niceDate(selected)}</h2><div class="muted">${items.length} бронирований</div></div><button type="button" class="mobile-day-plus" id="mobileDayPlus" aria-label="Добавить бронь на выбранный день">+</button><select id="statusfilter" aria-label="Фильтр статусов"><option value="all">Все статусы</option><option value="CONFIRMED">Подтверждённые</option><option value="PRELIMINARY">Предварительные</option><option value="FINISHED">Завершённые</option><option value="CANCELLED">Отменённые</option></select></div>${items.length?grouped:'<div class="emptymsg">На этот день бронирований нет</div>'}`;
+ $('mobileDayPlus').disabled=isPast(selected)||dev();$('mobileDayPlus').onclick=()=>{if(!dev())form(null)};
+ 
+ $('statusfilter').value=filter;$('statusfilter').onchange=e=>{filter=e.target.value;render()};
+ panel.querySelectorAll('[data-booking]').forEach(el=>el.onclick=()=>openDetail(Number(el.dataset.booking)));
+ enhanceRafiSelects(panel);
+ const freeMetric=[...$('page').querySelectorAll('.metric')].find(m=>m.textContent.includes('Зон свободно'));
+ if(freeMetric){const val=freeMetric.querySelector('strong');if(val)val.textContent=`${halls.filter(h=>!bookings.some(b=>occupies(b)&&b.startsAt.slice(0,10)===selected&&zoneIds(b).includes(h.id))).length} из ${halls.length}`;}
+}
+
+
+
+async function renderLeads(){
+ const box=$('leadPanel');if(!box||dev())return;
+ try{const leads=await api(apiClub('/leads'));
+ box.innerHTML=`<section class="panel leads-section"><button class="lead-toggle" id="leadToggle" type="button"><span>Ожидают уточнения</span><span>${leads.length} заявок ▾</span></button><div class="lead-entries" id="leadEntries" hidden>${leads.length?leads.map(l=>`<div class="lead-entry"><div><strong>${esc(l.clientName)}</strong><small>${esc(l.phone)}</small></div><div class="row"><button class="secondary" data-lead-open="${l.id}">Заполнить</button><button class="ghost" data-lead-delete="${l.id}">×</button></div></div>`).join(''):'<p class="muted">Незавершённых заявок нет</p>'}</div></section>`;
+ $('leadToggle').onclick=()=>$('leadEntries').hidden=!$('leadEntries').hidden;
+ box.querySelectorAll('[data-lead-open]').forEach(el=>el.onclick=()=>{const l=leads.find(x=>x.id===Number(el.dataset.leadOpen));form(null);$('client').value=l.clientName;$('phone').value=l.phone;const f=$('bookingform');f.dataset.leadId=l.id});
+ box.querySelectorAll('[data-lead-delete]').forEach(el=>el.onclick=async()=>{if(!await rafiConfirm('Удалить незавершённую заявку?'))return;try{await api(apiClub('/leads/'+el.dataset.leadDelete),{method:'DELETE'});await renderLeads()}catch(e){notify(e)}});
+ }catch(e){console.warn('Не удалось загрузить заявки',e)}
+}
+
+async function loadReminders(){if(dev())return;try{let data=await api(apiClub('/reminders'));let box=$('reminders');if(!box)return;let settings=currentDashboard();let upcoming=settings.showUpcoming!==false?`<div class="panel upcoming-widget"><div class="subhead"><h3>Ближайшие банкеты</h3><span class="muted">${data.length} событий</span></div>${data.slice(0,5).map(b=>`<button class="upcoming-row" data-remind="${b.id}"><span>${niceDate(b.startsAt.slice(0,10))}<small>${fmt(b.startsAt)}</small></span><strong>${esc(b.clientName)}</strong><span class="muted">${esc(zoneNames(b))}</span><i class="badge-dot ${dotStatus(b)}"></i></button>`).join('')||'<p class="muted">Ближайших банкетов нет</p>'}</div>`:'';let reminder=settings.showReminders!==false&&data.some(b=>b.status==='PRELIMINARY')?`<div class="reminder-hint">◷ Есть предварительные брони на ближайшие дни — проверь подтверждение.</div>`:'';box.innerHTML=upcoming+reminder;document.querySelectorAll('[data-remind]').forEach(el=>el.onclick=()=>openDetail(Number(el.dataset.remind)))}catch(e){console.warn(e)}}
+function showPending(){
+ const list=bookings.filter(b=>b.status==='PRELIMINARY').sort((a,b)=>a.startsAt.localeCompare(b.startsAt));
+ modal('Ждут подтверждения — '+month.toLocaleDateString('ru-RU',{month:'long',year:'numeric'}),list.length?list.map(b=>`<button class="booking" data-pending="${b.id}"><div class="bookingtop"><strong>${esc(b.clientName)}</strong><span class="pill">${status(b)}</span></div><p>${niceDate(b.startsAt.slice(0,10))} · ${fmt(b.startsAt)} · ${esc(halls.find(h=>h.id===b.hallId)?.name||'Зона')}</p></button>`).join(''):'<div class="emptymsg">В этом месяце нет предварительных броней</div>');
+ document.querySelectorAll('[data-pending]').forEach(el=>el.onclick=()=>openDetail(Number(el.dataset.pending)));
+}
+function submitGlobalSearch(){const term=$('globalSearch').value.trim();navigate('search');if(term){(term.replace(/\D/g,'').length>=6?$('searchphone'):$('searchname')).value=term;$('searchform').requestSubmit()}else $('searchform').requestSubmit()}
+
+function moveMonth(n){month=new Date(month.getFullYear(),month.getMonth()+n,1);selected=localDate(month);loadMonth().catch(notify)}
+function modal(title,html,wide=false){bookingDirty=false;$('modaltitle').textContent=title;$('modalcontent').innerHTML=html;$('modal').classList.toggle('wide',wide);$('overlay').classList.remove('hidden');enhanceRafiSelects($('modalcontent'));enhanceRafiDates($('modalcontent'));enhanceRafiTimes($('modalcontent'))}
+let bookingDirty=false;
+function close(){bookingDirty=false;$('overlay').classList.add('hidden')}
+async function tryClose(){if(bookingDirty&&!await rafiConfirm('Есть несохранённые изменения. Закрыть карточку?'))return;close()}
+window.addEventListener('beforeunload',e=>{if(bookingDirty){e.preventDefault();e.returnValue=''}});
+
+function form(b){if(b&&b.status==='FINISHED')return notify('Завершённый банкет нельзя изменить');editing=b||null;let date=b?b.startsAt.slice(0,10):selected,start=b?fmt(b.startsAt):'14:00',end=b?fmt(b.endsAt):'16:00';modal(b?'Изменить бронирование':'Новый банкет',`<form id="bookingform">${!b?`<div class="booking-kind"><label class="booking-kind-option"><input type="radio" name="bookingKind" value="full" checked> Бронь с датой</label><label class="booking-kind-option"><input type="radio" name="bookingKind" value="lead"> Заявка без даты</label></div>`:""}<label>Имя клиента</label><input id="client" required maxlength="120" value="${esc(b?.clientName||'')}" placeholder="Имя клиента"><label>Телефон</label><input id="phone" maxlength="40" value="${esc(b?.phone||'')}" placeholder="+7 ..."><div class="form-helper-row"><button class="secondary" id="historybtn" type="button">↗ История клиента</button></div><div class="booking-optional"><label>Дата</label><input type="date" id="date" required value="${date}"><div class="pair"><div><label>Начало</label><input type="time" id="start" required value="${start}" step="900"></div><div><label>Окончание</label><input type="time" id="end" required value="${end}" step="900"></div></div><div class="form-helper-row"><button class="secondary" id="checkfree" type="button">↗ Проверить свободные зоны</button></div><label>Зоны (можно выбрать несколько)</label><div class="zone-picks">
+${halls.filter(h => !h.archived || (b && zoneIds(b).includes(h.id))).map(h=>`
+<label class="zone-pick"><input type="checkbox" class="pickzone" value="${h.id}" ${b?zoneIds(b).includes(h.id)?'checked':'':false?'checked':''}><span class="zone-pick-name">${esc(h.name)}</span><span class="zone-switch" aria-hidden="true"><span class="zone-switch-thumb"></span></span></label>`).join('')}</div>${b?'':`<label>Держать бронь</label><select id="hold"><option value="6">6 часов</option><option value="12">12 часов</option><option value="24" selected>24 часа</option><option value="48">48 часов</option></select>`}<label>Примечание (необязательно)</label><textarea id="notes" rows="2" maxlength="255">${esc(b?.notes||'')}</textarea></div><div id="formerror" class="alert hidden"></div><div class="actions"><button type="button" class="secondary" id="cancel">Отмена</button><button class="primary" type="submit">${b?'Сохранить':'Создать бронь'}</button></div></form>`);$('cancel').onclick=tryClose;bookingDirty=false;$('bookingform').addEventListener('input',()=>bookingDirty=true);$('bookingform').addEventListener('change',()=>bookingDirty=true); if(!b){document.querySelectorAll('[name=bookingKind]').forEach(r=>r.onchange=()=>{const lead=document.querySelector('[name=bookingKind]:checked')?.value==='lead';$('date').required=!lead;$('start').required=!lead;$('end').required=!lead;document.querySelectorAll('#bookingform .booking-optional').forEach(el=>el.hidden=lead);});}
+ $('checkfree').onclick=async()=>{try{let start=$('start').value,end=$('end').value;if(end<=start)return notify('Укажите корректное время');let minutes=(Number(end.slice(0,2))*60+Number(end.slice(3)))-(Number(start.slice(0,2))*60+Number(start.slice(3)));let result=await api(apiClub(`/availability?date=${$('date').value}&start=${start}&minutes=${minutes}`));rafiNotice(result.freeZones.length?'Свободные зоны: '+result.freeZones.map(h=>h.name).join(', '):'Свободных зон нет')}catch(e){notify(e)}};$('historybtn').onclick=async()=>{let phone=$('phone').value;if(phone.replace(/\D/g,'').length<6)return notify('Укажите телефон (минимум 6 цифр)');try{let history=await api(apiClub('/clients/history?phone='+encodeURIComponent(phone)));rafiNotice(history.length?history.map(x=>`${niceDate(x.startsAt.slice(0,10))}: ${x.clientName}, ${status(x)}`).join(' · '):'Ранее банкетов не найдено')}catch(e){notify(e)}};$('bookingform').onsubmit=save}
+async function save(e){e.preventDefault();if(document.querySelector('[name=bookingKind]:checked')?.value==='lead'){if(!$('phone').value.replace(/\D/g,'').length||$('phone').value.replace(/\D/g,'').length<6)return notify('Укажите телефон (не менее 6 цифр)');try{await api(apiClub('/leads'),{method:'POST',body:JSON.stringify({clientName:$('client').value,phone:$('phone').value})});bookingDirty=false;close();rafiNotice('Предварительная заявка сохранена');await renderLeads()}catch(err){$('formerror').textContent=err.message;$('formerror').classList.remove('hidden')}return}let date=$('date').value,start=$('start').value,end=$('end').value;let payload={clientName:$('client').value,phone:$('phone').value,hallId:Number(document.querySelector('.pickzone:checked')?.value||0),zoneIds:[...document.querySelectorAll('.pickzone:checked')].map(x=>Number(x.value)),startsAt:iso(date,start),endsAt:iso(date,end),notes:$('notes').value,holdHours:editing?null:Number($('hold').value)};if(isPast(date)){notify('Нельзя бронировать прошедшую дату');return}if(!payload.zoneIds.length){notify('Выберите хотя бы одну зону');return}if(end<=start){$('formerror').textContent='Окончание должно быть позже начала';$('formerror').classList.remove('hidden');return}try{const leadId=$('bookingform')?.dataset.leadId;const saveUrl=leadId?`/leads/${leadId}/convert`:`/bookings${editing?'/'+editing.id:''}`;let saved=await api(apiClub(saveUrl),{method:leadId?'POST':editing?'PUT':'POST',body:JSON.stringify(payload)});selected=date;month=new Date(Number(date.slice(0,4)),Number(date.slice(5,7))-1,1);bookingDirty=false;close();await loadMonth();if(editing)await openDetail(saved.id)}catch(e){$('formerror').textContent=e.message;$('formerror').classList.remove('hidden')}}
+async function openDetail(id){detailId=id;try{let b=await findBooking(id),lines=await api(apiClub(`/bookings/${id}/lines`));let sum=lines.reduce((a,l)=>a+Number(l.unitPrice)*l.quantity,0)+Number(b.zoneRental||0)+Number(b.extraOrder||0),pre=Number(b.prepayment||0),zone=halls.find(h=>h.id===b.hallId);if(dev()){modal('Карточка банкета · просмотр',`<div class="readonly-note" style="display:block">Режим разработчика: только просмотр</div><div class="detailrow"><span>Клиент</span><strong>${esc(b.clientName)}</strong></div><div class="detailrow"><span>Дата и время</span><strong>${niceDate(b.startsAt.slice(0,10))} · ${fmt(b.startsAt)}–${fmt(b.endsAt)}</strong></div><div class="detailrow"><span>Зона</span><strong>${esc(zoneNames(b))}</strong></div><div class="detailrow"><span>Статус</span><strong>${status(b)}</strong></div><div class="detailrow"><span>Гостей</span><strong>${b.guests??0}</strong></div><div class="detailrow"><span>Сумма</span><strong>${money(sum)}</strong></div><div class="detailrow"><span>Предоплата</span><strong>${money(pre)}</strong></div><div class="detailrow"><span>Создал</span><strong>${esc(b.createdBy||'—')}</strong></div>`);return}modal('Карточка банкета',`<section class="banquet-section"><div class="sectionhead"><h3>Основная информация</h3></div><div class="detailrow"><span>Клиент</span><strong>${esc(b.clientName)}</strong></div><div class="detailrow"><span>Телефон</span><strong>${esc(b.phone||'—')}</strong></div><div class="detailrow"><span>Дата и время</span><strong>${niceDate(b.startsAt.slice(0,10))}, ${fmt(b.startsAt)}–${fmt(b.endsAt)}</strong></div><div class="detailrow"><span>Зона</span><strong>${esc(zoneNames(b))}</strong></div><div class="detailrow"><span>Статус</span><strong class="${b.status==='FINISHED'?'finished-text':''}">${status(b)}</strong></div>${b.status==='PRELIMINARY'?`<div class="notice">Подтвердить до ${new Date(b.holdUntil).toLocaleString('ru-RU')}</div>`:''}</section><section class="banquet-section"><div class="sectionhead"><h3>Гости и оплата</h3></div><form id="inlinefinance" class="inline-finance"><label>Количество гостей<input id="guests" type="number" min="0" required value="${b.guests??0}" ${['CANCELLED','FINISHED'].includes(b.status)?'disabled':''}></label><label>Общая аренда, ₽<input id="zoneRental" type="number" min="0" step="0.01" required  value="${b.zoneRental??0}" ${['CANCELLED','FINISHED'].includes(b.status)?'disabled':''}></label><label>Предоплата, ₽<input id="prepayment" type="number" min="0" step="0.01" required value="${b.prepayment??0}" ${['CANCELLED','FINISHED'].includes(b.status)?'disabled':''}></label><label>Дозаказ, ₽<input id="extraOrder" type="number" min="0" step="0.01" required value="${b.extraOrder??0}" ${['CANCELLED','FINISHED'].includes(b.status)?'disabled':''}></label><button class="primary" type="submit" ${['CANCELLED','FINISHED'].includes(b.status)?'disabled':''}>Сохранить суммы</button></form></section><section class="banquet-section"><div class="sectionhead"><h3>Меню</h3><button class="linkbutton" id="addmenu" ${['CANCELLED','FINISHED'].includes(b.status)?'disabled':''}>+ Добавить</button></div>${renderLines(lines,'MENU')}</section><section class="banquet-section"><div class="sectionhead"><h3>Услуги</h3><button class="linkbutton" id="addservice" ${['CANCELLED','FINISHED'].includes(b.status)?'disabled':''}>+ Добавить</button></div>${renderLines(lines,'SERVICE')}</section><section class="banquet-section"><div class="sectionhead"><h3>Итоговая стоимость</h3></div><div class="detailrow"><span>Стоимость аренды зоны</span><strong>${money(b.zoneRental||0)}</strong></div><div class="detailrow"><span>Предоплата</span><strong>${money(pre)}</strong></div><div class="detailrow"><span>Дозаказ</span><strong>${money(b.extraOrder||0)}</strong></div><div class="total"><span>Сумма банкета</span><span>${money(sum)}</span></div><div class="detailrow"><span>Осталось оплатить</span><strong>${money(Math.max(0,sum-pre))}</strong></div></section><section class="banquet-section"><div class="sectionhead"><h3>Документы</h3></div><div class="document-actions"><button class="secondary" id="printcard" type="button">🖨 Печать анкеты</button><button class="secondary" id="pdfcard" type="button">↓ PDF анкеты</button><button class="secondary" id="printkitchen" type="button">🖨 Печать для кухни</button><button class="secondary" id="pdfkitchen" type="button">↓ PDF для кухни</button></div></section><section class="banquet-section"><div class="sectionhead"><h3>Действия</h3></div><div class="actions"><button class="secondary" id="editbooking" ${['CANCELLED','FINISHED'].includes(b.status)?'disabled':''}>Изменить бронь</button>${b.status==='PRELIMINARY'?'<button class="secondary" id="extend">Продлить</button><button class="primary" id="confirm">Подтвердить</button>':''}${b.status==='FINISHED'?'':b.status!=='CANCELLED'?'<button class="secondary" id="cancelbooking">Отменить бронь</button>':'<button class="primary" id="restorebooking">Восстановить бронь</button>'}</div><div class="hint" style="margin-top:12px">Создал: ${esc(b.createdBy||'Ранее созданная запись')} · Изменил: ${esc(b.modifiedBy||'—')}</div><div class="hint" style="margin-top:12px">Сумма включает аренду зоны, дозаказ и добавленные позиции. Предоплата пока хранится одной суммой без истории платежей.</div></section>`,true);
+$('printcard').onclick=()=>printDocument(b,lines,'card');$('printkitchen').onclick=()=>printDocument(b,lines,'kitchen');$('pdfcard').onclick=()=>downloadPdf(b.id,'card');$('pdfkitchen').onclick=()=>downloadPdf(b.id,'kitchen');document.querySelectorAll('#inlinefinance input[type=number]').forEach(el=>{el.addEventListener('focus',()=>{if(Number(el.value)===0)el.value=''});el.addEventListener('blur',()=>{if(el.value.trim()==='')el.value='0'})});if($('editbooking'))$('editbooking').onclick=()=>form(b);$('inlinefinance').onsubmit=async e=>{e.preventDefault();try{await api(apiClub(`/bookings/${b.id}/finance`),{method:'PATCH',body:JSON.stringify({guests:Number($('guests').value),zoneRental:Number($('zoneRental').value),prepayment:Number($('prepayment').value),extraOrder:Number($('extraOrder').value)})});await loadMonth();openDetail(b.id)}catch(err){notify(err)}};$('addmenu').onclick=()=>addLine(b,'MENU');$('addservice').onclick=()=>addLine(b,'SERVICE');document.querySelectorAll('[data-qty-line]').forEach(el=>{el.disabled=b.status==='FINISHED';el.onclick=async()=>{let q=await rafiPrompt('Новое количество',el.dataset.currentQty);if(q===null)return;if(!/^\d+$/.test(q)||Number(q)<1)return notify('Введите количество больше нуля');try{await api(apiClub(`/bookings/${id}/lines/${el.dataset.qtyLine}`),{method:'PATCH',body:JSON.stringify({quantity:Number(q)})});await openDetail(id)}catch(err){notify(err)}}});document.querySelectorAll('[data-remove-line]').forEach(el=>{el.disabled=b.status==='FINISHED';el.onclick=async()=>{if(!await rafiConfirm('Удалить позицию из заказа?'))return;try{await api(apiClub(`/bookings/${id}/lines/${el.dataset.removeLine}`),{method:'DELETE'});openDetail(id)}catch(e){notify(e)}}});if($('extend'))$('extend').onclick=async()=>{try{await api(apiClub(`/bookings/${id}/hold`),{method:'PATCH',body:JSON.stringify({hours:24})});await loadMonth();openDetail(id)}catch(e){notify(e)}};if($('confirm'))$('confirm').onclick=()=>changeStatus(id,'CONFIRMED');if($('cancelbooking'))$('cancelbooking').onclick=async()=>{if(await rafiConfirm('Отменить бронь?'))changeStatus(id,'CANCELLED')};if($('restorebooking'))$('restorebooking').onclick=async()=>{if(await rafiConfirm('Восстановить бронь с прежним статусом?'))changeStatus(id,'RESTORE')}
+}catch(e){notify(e)}}
+function passwordForm(){
+ modal('Смена пароля',`<form id="pwdform"><label>Текущий пароль</label><input id="pwdcur" type="password" autocomplete="current-password" required><label>Новый пароль (не менее 8 символов)</label><input id="pwdnew" type="password" autocomplete="new-password" minlength="8" maxlength="72" required><label>Повторите новый пароль</label><input id="pwdnew2" type="password" autocomplete="new-password" required><div id="pwderror" class="alert hidden"></div><div class="actions"><button type="submit">Сменить пароль</button></div></form>`);
+ $('pwdform').onsubmit=async e=>{e.preventDefault();const err=$('pwderror');err.classList.add('hidden');if($('pwdnew').value!==$('pwdnew2').value){err.textContent='Пароли не совпадают';err.classList.remove('hidden');return}try{await api('/me/password',{method:'POST',body:JSON.stringify({current:$('pwdcur').value,password:$('pwdnew').value})});close();rafiNotice('Пароль изменён')}catch(x){err.textContent=x.message;err.classList.remove('hidden')}}
+}
+function downloadPdf(id,kind){const url=`/api/clubs/${clubId}/bookings/${id}/document?kind=${kind}`;window.open(url,'_blank','noopener')}
+function printDocument(b,lines,kind){const c=clubs.find(c=>c.id===clubId),h=halls.find(h=>h.id===b.hallId);const kitchen=kind==='kitchen';const menu=lines.filter(l=>l.kind==='MENU');const sum=lines.reduce((n,l)=>n+Number(l.unitPrice)*l.quantity,0)+Number(b.zoneRental||0)+Number(b.extraOrder||0);const content=`<h1>${kitchen?'Заказ для кухни':'Анкета банкета'}</h1><h2>${esc(c?.name||'Клуб')}</h2><p><b>Дата:</b> ${niceDate(b.startsAt.slice(0,10))} · ${fmt(b.startsAt)}–${fmt(b.endsAt)}<br><b>Зона:</b> ${esc(zoneNames(b)||'—')}<br><b>Банкет №:</b> ${b.id}</p>${!kitchen?`<p><b>Клиент:</b> ${esc(b.clientName)}<br><b>Телефон:</b> ${esc(b.phone||'—')}<br><b>Гостей:</b> ${b.guests??0}<br><b>Статус:</b> ${status(b)}</p>`:''}<h3>Меню</h3><table>${menu.map(l=>`<tr><td>${esc(l.name)}</td><td>${l.quantity} ${esc(l.unit||'шт.')}</td>${kitchen?'':`<td>${money(Number(l.unitPrice)*l.quantity)}</td>`}</tr>`).join('')}</table>${kitchen?'':`<h3>Услуги</h3><table>${lines.filter(l=>l.kind==='SERVICE').map(l=>`<tr><td>${esc(l.name)}</td><td>${l.quantity} ${esc(l.unit||'шт.')}</td><td>${money(Number(l.unitPrice)*l.quantity)}</td></tr>`).join('')}</table><p>Аренда: ${money(b.zoneRental)} · Дозаказ: ${money(b.extraOrder)}<br>Итого: ${money(sum)} · Предоплата: ${money(b.prepayment)}<br><b>Осталось: ${money(Math.max(0,sum-Number(b.prepayment||0)))}</b></p>`}${b.notes?`<p><b>Примечание:</b> ${esc(b.notes)}</p>`:''}`;const w=window.open('','_blank');if(!w)return notify('Разрешите всплывающие окна для печати');w.document.write('<!doctype html><html lang="ru"><meta charset="utf-8"><title>Rafi — печать</title><style>body{font:15px Arial,sans-serif;max-width:780px;margin:35px auto;color:#111}table{width:100%;border-collapse:collapse}td{border-bottom:1px solid #ddd;padding:9px}h1{font-size:24px}h2{font-size:18px}</style>'+content+'</html>');w.document.close();w.focus();setTimeout(()=>w.print(),300)}
+function renderLines(lines,kind){let list=lines.filter(l=>l.kind===kind);return list.length?list.map(l=>`<div class="catalogrow"><div>${esc(l.name)} <span class="muted">× ${l.quantity}</span><div class="small muted">${money(l.unitPrice)} за ${esc(l.unit||'шт.')}</div></div><div class="row"><span class="price">${money(Number(l.unitPrice)*l.quantity)}</span><button class="secondary" data-qty-line="${l.id}" data-current-qty="${l.quantity}" title="Изменить количество">Кол-во</button><button class="ghost" data-remove-line="${l.id}" title="Удалить" aria-label="Удалить позицию"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5m4-5v5"/></svg></button></div></div>`).join(''):'<div class="hint">Пока ничего не добавлено</div>'}
+async function findBooking(id){let b=bookings.find(b=>b.id===id);if(b)return b;return api(apiClub(`/bookings/${id}`))}
+async function financeForm(b){modal('Гости и предоплата',`<form id="financeform"><label>Количество гостей</label><input id="guests" type="number" min="0" required value="${b.guests??0}"><label>Общая аренда, ₽</label><input id="zoneRental" type="number" min="0" step="0.01" required  value="${b.zoneRental??0}"><label>Полученная предоплата, ₽</label><input id="prepayment" type="number" min="0" step="0.01" required value="${b.prepayment??0}"><p class="hint">В этой версии сохраняется общая сумма предоплаты, а не отдельные платежи.</p><div class="actions"><button type="button" class="secondary" id="back">Назад</button><button class="primary" type="submit">Сохранить</button></div></form>`);$('back').onclick=()=>openDetail(b.id);$('financeform').onsubmit=async e=>{e.preventDefault();try{await api(apiClub(`/bookings/${b.id}/finance`),{method:'PATCH',body:JSON.stringify({guests:Number($('guests').value),prepayment:Number($('prepayment').value),zoneRental:Number($('zoneRental').value),extraOrder:Number(b.extraOrder||0)})});await loadMonth();openDetail(b.id)}catch(e){notify(e)}}}
+async function addLine(b,kind){try{let items=await api(apiClub(`/catalog?kind=${kind}`));if(!items.length){modal('Каталог пуст',`<p class="hint">Добавьте в каталог ${kind==='MENU'?'блюда в меню':'услуги'} для этого клуба.</p><div class="actions"><button class="secondary" id="back">Назад</button></div>`);$('back').onclick=()=>openDetail(b.id);return}modal(kind==='MENU'?'Добавить блюдо':'Добавить услугу',`<form id="lineform"><label>Категория</label><select id="choosecat"><option value="">Все категории</option>${[...new Set(items.map(i=>i.category||'Без категории'))].map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('')}</select><label>Позиция</label><select id="item">${items.map(i=>`<option value="${i.id}" data-category="${esc(i.category||'Без категории')}">${esc(i.name)} — ${money(i.price)}</option>`).join('')}</select><label>Количество</label><input id="qty" type="number" min="1" max="10000" value="1" required><div class="actions"><button type="button" class="secondary" id="back">Назад</button><button type="submit" class="primary">Добавить</button></div></form>`);$('back').onclick=()=>openDetail(b.id);$('choosecat').onchange=()=>{[...$('item').options].forEach(o=>o.hidden=!!$('choosecat').value&&o.dataset.category!==$('choosecat').value);$('item').value=[...$('item').options].find(o=>!o.hidden)?.value||''};$('lineform').onsubmit=async e=>{e.preventDefault();try{await api(apiClub(`/bookings/${b.id}/lines`),{method:'POST',body:JSON.stringify({catalogItemId:Number($('item').value),quantity:Number($('qty').value)})});openDetail(b.id)}catch(e){notify(e)}}}catch(e){notify(e)}}
+async function changeStatus(id,status){try{await api(apiClub(`/bookings/${id}/status`),{method:'PATCH',body:JSON.stringify({status})});close();await loadMonth()}catch(e){notify(e)}}
+async function renderCatalog(kind){
+ const version=++pageRenderVersion,requestedClub=clubId;
+ try{
+  const [items,cats]=await Promise.all([api(apiClub(`/catalog?kind=${kind}`)),api(apiClub(`/categories?kind=${kind}`))]);
+  if(version!==pageRenderVersion||requestedClub!==clubId||page!==(kind==='MENU'?'menu':'services'))return;
+  const edit=canEditCatalog();
+  $('page').innerHTML=`<div class="heading"><div><h1>${kind==='MENU'?'Меню':'Услуги'}</h1><div class="muted">Каталог клуба «${esc(clubs.find(c=>c.id===clubId)?.name)}»</div></div>${edit?`<div class="catalog-actions"><button class="secondary" id="newcat">+ Категория</button><button class="primary" id="newitem">+ ${kind==='MENU'?'Блюдо':'Услуга'}</button></div>`:''}</div><section class="panel"><div class="catalog-search"><select id="catalogCategory"><option value="">Все категории</option>${cats.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join('')}</select><div class="catalog-query-wrap"><input id="catalogQuery" type="search" placeholder="${kind==='MENU'?'Поиск блюда по названию':'Поиск услуги по названию'}" aria-label="Поиск по каталогу"><button class="catalog-arrow" type="button" id="catalogFind" aria-label="Найти"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button></div></div><div id="catalogList">${items.length?items.map(i=>`<div class="catalogrow" data-catalog-id="${i.id}"><span>${esc(i.name)} <small class="muted">· ${esc(i.category||'Без категории')}</small></span><div class="row"><span class="price">${money(i.price)} / ${esc(i.unit||'шт.')}</span>${edit?`<button class="secondary" data-edit-item="${i.id}">Изменить</button><button class="ghost" data-delete-item="${i.id}" title="Удалить" aria-label="Удалить позицию"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5m4-5v5"/></svg></button>`:''}</div></div>`).join(''):'<div class="emptymsg">Каталог пока пуст</div>'}</div></section>`;
+  enhanceRafiSelects($('page'));enhanceRafiDates($('page'));
+  const catalogGroups=new Map();for(const item of items){const name=item.category||'Без категории';if(!catalogGroups.has(name)){const details=document.createElement('details');details.className='v3-catalog-category';details.innerHTML='<summary><span>'+esc(name)+'</span><span class="v3-category-count"></span><span class="v3-chevron" aria-hidden="true"></span></summary><div class="v3-category-items"></div>';$('catalogList').append(details);catalogGroups.set(name,details);}const row=document.querySelector('[data-catalog-id="'+item.id+'"]');if(row)catalogGroups.get(name).querySelector('.v3-category-items').append(row);}for(const details of catalogGroups.values())details.querySelector('.v3-category-count').textContent=details.querySelectorAll('.catalogrow').length;
+  const apply=()=>{const q=$('catalogQuery').value.trim().toLocaleLowerCase('ru-RU');document.querySelectorAll('#catalogList .catalogrow').forEach(row=>{const id=Number(row.dataset.catalogId);const item=items.find(x=>x.id===id);const text=(item?.name||row.querySelector('span').textContent).toLocaleLowerCase('ru-RU');const category=item?.category||'Без категории';row.hidden=!text.includes(q)||!!($('catalogCategory').value&&category!==$('catalogCategory').value)});for(const details of catalogGroups.values()){const visible=[...details.querySelectorAll('.catalogrow')].filter(row=>!row.hidden).length;details.hidden=visible===0;details.querySelector('.v3-category-count').textContent=visible;if(q||$('catalogCategory').value)details.open=visible>0;}};
+  $('catalogCategory').onchange=apply;$('catalogFind').onclick=apply;$('catalogQuery').oninput=apply;$('catalogQuery').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();apply()}};
+  if($('newcat'))$('newcat').onclick=()=>{modal('Новая категория',`<form id="newcategoryform"><label for="newcategoryname">Название категории</label><input id="newcategoryname" required maxlength="120" placeholder="Название"><div class="actions"><button type="button" class="secondary" id="cancelcategory">Отмена</button><button type="submit" class="primary" id="savecategory">Сохранить</button></div></form>`);$('cancelcategory').onclick=close;$('newcategoryname').focus();$('newcategoryform').onsubmit=async e=>{e.preventDefault();const name=$('newcategoryname').value.trim();if(!name)return;const btn=$('savecategory');btn.disabled=true;try{await api(apiClub('/categories/'+kind),{method:'POST',body:JSON.stringify({name})});close();renderCatalog(kind)}catch(err){btn.disabled=false;notify(err)}}};
+  if($('newitem'))$('newitem').onclick=()=>itemForm(kind,null);
+  $('catalogList').onclick=e=>{const editBtn=e.target.closest('[data-edit-item]');if(editBtn)itemForm(kind,items.find(i=>i.id===Number(editBtn.dataset.editItem)))};
+ }catch(e){notify(e)}
+}
+async function itemForm(kind,item){if(!canEditCatalog())return;let cats=await api(apiClub(`/categories?kind=${kind}`));modal(item?'Изменить позицию':kind==='MENU'?'Новое блюдо':'Новая услуга',`<form id="itemform"><label>Название</label><input id="itemname" maxlength="150" required value="${esc(item?.name||'')}" placeholder="Название"><label>Категория</label><select id="itemcategory"><option value="Без категории">Без категории</option>${cats.map(c=>`<option value="${esc(c.name)}" ${item?.category===c.name?'selected':''}>${esc(c.name)}</option>`).join('')}</select><label>Единица измерения (шт., час, услуга)</label><input id="itemunit" maxlength="30" required value="${esc(item?.unit||'шт.')}"><label>Цена за единицу, ₽</label><input id="itemprice" type="number" min="0" step="0.01" required value="${item?.price??''}" placeholder="0"><div class="actions"><button type="button" class="secondary" id="cancel">Отмена</button><button type="submit" class="primary">Сохранить</button></div></form>`);$('cancel').onclick=close;$('itemform').onsubmit=async e=>{e.preventDefault();try{await api(apiClub(`/catalog/${kind}${item?'/'+item.id:''}`),{method:item?'PUT':'POST',body:JSON.stringify({name:$('itemname').value,unit:$('itemunit').value,category:$('itemcategory').value,quantityEnabled:kind==='MENU',price:Number($('itemprice').value)})});close();renderCatalog(kind)}catch(e){notify(e)}}}
+let mapSelectedDate=localDate(new Date());let mapBookings=[];
+async function loadMapDate(){const requestedClub=clubId,requestedDate=mapSelectedDate;const d=new Date(mapSelectedDate+'T12:00:00');try{const result=await api(apiClub(`/bookings?year=${d.getFullYear()}&month=${d.getMonth()+1}`));if(requestedClub===clubId&&requestedDate===mapSelectedDate)mapBookings=result;}catch(e){notify(e);mapBookings=[]}}
+async function shiftMapDate(days){const d=new Date(mapSelectedDate+'T12:00:00');d.setDate(d.getDate()+days);mapSelectedDate=localDate(d);await loadMapDate();renderMap()}
+// Outline is a list of percentage coordinates stored on the existing zone.
+// No separate booking objects or duplicate zones are created.
+let planDraftZone=null,planDraftPoints=[];
+function planPoints(h){return typeof h.outline==='string'&&/^\d+(?:\.\d+)?,\d+(?:\.\d+)?(?: \d+(?:\.\d+)?,\d+(?:\.\d+)?){2,23}$/.test(h.outline)?h.outline:''}
+function renderMap(){
+ const imageUrl=`/api/clubs/${clubId}/plan-image`;
+ const visible=halls.filter(h=>!h.archived);
+ const options=visible.map(h=>`<option value="${h.id}">${esc(h.name)}</option>`).join('');
+ $('page').innerHTML=`<div class="heading"><div><h1>Схема клуба</h1><p class="muted">${esc(clubs.find(c=>c.id===clubId)?.name||'')}</p></div>${dev()?'<button class="primary" id="addzone">+ Добавить зону</button>':''}</div><section class="panel">${!dev()?`<div class="map-datebar"><button id="mapPrev" type="button" aria-label="Предыдущий день">‹</button><input id="mapDate" type="date" value="${mapSelectedDate}" aria-label="Дата просмотра зон"><button id="mapNext" type="button" aria-label="Следующий день">›</button></div>`:''}${dev()?`<div class="plan-upload"><label>Загрузить план клуба (PNG или JPG, до 5 МБ)</label><input type="file" id="planfile" accept="image/png,image/jpeg"><button class="secondary" id="planupload">Загрузить схему</button><p class="hint">Загрузите схему выбранного клуба. Контуры столов настраиваются ниже и сохраняются отдельно от картинки.</p></div><div class="plan-editor"><label for="planZoneSelect">Интерактивный стол для зоны</label><select id="planZoneSelect">${options}</select><button type="button" class="secondary" id="planDraw" ${visible.length?'':'disabled'}>Обвести стол</button><button type="button" class="secondary" id="planUndo" disabled>Отменить точку</button><button type="button" class="primary" id="planSave" disabled>Сохранить контур</button><button type="button" class="secondary" id="planClear" ${visible.length?'':'disabled'}>Убрать контур</button><button type="button" class="secondary" id="planDeleteZone" ${visible.length?'':'disabled'}>Удалить зону</button></div><p class="hint" id="planEditorHint">Выберите зону, нажмите «Обвести стол» и отметьте минимум три точки по краю столешницы. Затем сохраните.</p>`:'<p class="hint">Нажмите на банкетный стол, чтобы посмотреть его расписание.</p>'}<div class="layoutmap image-plan rafi-interactive-plan" id="zonecanvas"><img id="planbackground" alt="План клуба" src="${imageUrl}?t=${Date.now()}"><svg id="planOverlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="Интерактивные банкетные столы">${visible.filter(h=>planPoints(h)).map(h=>`<polygon class="plan-polygon ${dev()?'editing':''}" data-zone="${h.id}" points="${planPoints(h)}" tabindex="0" role="button" aria-label="${esc(h.name)}"></polygon>`).join('')}<polyline id="planDraft" points="" /></svg><div class="plan-no-image" id="planNoImage" hidden>${dev()?'Сначала загрузите схему клуба':'Схема клуба пока не загружена'}</div></div>${dev()?`<div class="hint" style="margin-top:12px">${visible.filter(h=>planPoints(h)).length} из ${visible.length} зон имеют интерактивные контуры. Зоны без контура на схеме администратора не отображаются.</div>`:''}</section>`;
+ const image=$('planbackground'),canvas=$('zonecanvas');
+ image.onload=()=>{canvas.classList.add('has-image');$('planNoImage').hidden=true};
+ image.onerror=()=>{canvas.classList.remove('has-image');$('planNoImage').hidden=false};
+ if(image.complete){if(image.naturalWidth)image.onload();else image.onerror()}
+ if($('mapPrev')){$('mapPrev').onclick=()=>shiftMapDate(-1);$('mapNext').onclick=()=>shiftMapDate(1);enhanceRafiDates($('page'));$('mapDate').onchange=async e=>{if(!e.target.value)return;mapSelectedDate=e.target.value;await loadMapDate();renderMap()}}
+ document.querySelectorAll('#planOverlay [data-zone]').forEach(el=>{const h=halls.find(h=>h.id===Number(el.dataset.zone));if(!h)return;el.onclick=()=>{if(dev()&&planDraftZone!==null)return;if(dev()){$('planZoneSelect').value=String(h.id);$('planZoneSelect').dispatchEvent(new Event('change',{bubbles:true}));$('planEditorHint').textContent=`Выбрана зона «${h.name}». Нажмите «Обвести стол», чтобы изменить её контур.`}else zoneInfo(h)};el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.onclick()}}});
+ enhanceRafiSelects($('page'));
+ if($('addzone'))$('addzone').onclick=()=>zoneForm(null);
+ if($('planDeleteZone'))$('planDeleteZone').onclick=()=>{const h=halls.find(h=>h.id===Number($('planZoneSelect').value));if(h)zoneForm(h)};
+ if($('planupload'))$('planupload').onclick=async()=>{let file=$('planfile').files[0];if(!file)return notify('Выберите изображение');if(file.size>5000000)return notify('Размер файла не должен превышать 5 МБ');let data=new FormData();data.append('file',file);try{let r=await fetch('/api'+apiClub('/plan-image'),{method:'POST',headers:{'X-XSRF-TOKEN':csrf()},body:data});if(!r.ok)throw Error('Не удалось загрузить схему');renderMap()}catch(e){notify(e)}};
+ if(!dev())return;
+ planDraftZone=null;planDraftPoints=[];
+ const overlay=$('planOverlay'),draft=$('planDraft'),hint=$('planEditorHint');
+ function refreshDraft(){draft.setAttribute('points',planDraftPoints.map(p=>p.join(',')).join(' '));$('planSave').disabled=planDraftPoints.length<3;$('planUndo').disabled=!planDraftPoints.length;hint.textContent=planDraftZone===null?'Выберите зону и нажмите «Обвести стол».':`Точек: ${planDraftPoints.length}. Отметьте контур стола (не менее трёх точек) и нажмите «Сохранить контур».`}
+ $('planDraw').onclick=()=>{if(!image.naturalWidth)return notify('Сначала загрузите схему клуба');planDraftZone=Number($('planZoneSelect').value);planDraftPoints=[];overlay.classList.add('drawing');refreshDraft()};
+ overlay.addEventListener('click',e=>{if(planDraftZone===null)return;const r=overlay.getBoundingClientRect();if(!r.width||!r.height)return;const x=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100)),y=Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100));if(planDraftPoints.length>=24)return notify('Максимум 24 точки');planDraftPoints.push([+x.toFixed(2),+y.toFixed(2)]);refreshDraft()});
+ $('planUndo').onclick=()=>{planDraftPoints.pop();refreshDraft()};
+ async function saveOutline(id,outline){try{await api(apiClub(`/zones/${id}/outline`),{method:'PUT',body:JSON.stringify({outline})});halls=await api(apiClub('/halls'));renderMap()}catch(e){notify(e)}}
+ $('planSave').onclick=()=>{if(planDraftZone===null||planDraftPoints.length<3)return;saveOutline(planDraftZone,planDraftPoints.map(p=>p.join(',')).join(' '))};
+ $('planClear').onclick=()=>saveOutline(Number($('planZoneSelect').value),'');
+}
+
+function zoneInfo(h){let list=mapBookings.filter(b=>b.startsAt.slice(0,10)===mapSelectedDate&&zoneIds(b).includes(h.id)).sort((a,b)=>a.startsAt.localeCompare(b.startsAt));modal(h.name,`<p class="muted">${niceDate(mapSelectedDate)}</p>${list.length?list.map(b=>`<button class="booking zone-info-item" data-zone-booking="${b.id}"><strong>${fmt(b.startsAt)}–${fmt(b.endsAt)} · ${esc(b.clientName)}</strong><p>Продолжительность: ${Math.round((new Date(b.endsAt)-new Date(b.startsAt))/60000)} мин · ${status(b)}</p></button>`).join(''):'<p class="hint">На выбранную дату бронирований нет.</p>'}<div class="actions"><button class="secondary" id="back">Закрыть</button></div>`);$('back').onclick=close;document.querySelectorAll('[data-zone-booking]').forEach(el=>el.onclick=()=>openDetail(Number(el.dataset.zoneBooking)))}
+
+
+function zoneForm(h) {
+    if (!dev()) return;
+
+    modal(h ? 'Изменить зону' : 'Новая зона', `
+        <form id="zoneform">
+            <label>Название зоны</label>
+            <input id="zonename" required value="${esc(h?.name || '')}" placeholder="Например, Игровая зона">
+
+            <div class="pair">
+                <div>
+                    <label>Слева, %</label>
+                    <input id="zonex" type="number" min="0" max="90" value="${h?.x ?? 10}" required>
+                </div>
+                <div>
+                    <label>Сверху, %</label>
+                    <input id="zoney" type="number" min="0" max="90" value="${h?.y ?? 10}" required>
+                </div>
+                <div>
+                    <label>Ширина, %</label>
+                    <input id="zonew" type="number" min="10" max="90" value="${h?.width ?? 25}" required>
+                </div>
+                <div>
+                    <label>Высота, %</label>
+                    <input id="zoneh" type="number" min="10" max="90" value="${h?.height ?? 25}" required>
+                </div>
+            </div>
+
+            <div class="hint">
+                Это простой редактор расположения зон, а не точный архитектурный чертёж.
+            </div>
+
+
+            <div class="actions">
+                ${h ? '<button type="button" class="secondary" id="deletezone">Удалить зону</button>' : ''}
+                <button type="button" class="secondary" id="cancel">Отмена</button>
+                <button class="primary" type="submit">Сохранить</button>
+            </div>
+        </form>
+    `);
+
+    $('cancel').onclick = close;
+
+
+    // Привязываем удаление к текущему окну редактирования зоны.
+    const deleteButton = $('deletezone');
+    if (h && deleteButton) {
+        deleteButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!await rafiConfirm(`Удалить зону «${h.name}»?\n\nЕсли зона использовалась в банкетах, она будет архивирована.`)) return;
+            deleteButton.disabled = true;
+            try {
+                await api(apiClub('/zones/' + h.id), {method: 'DELETE'});
+                halls = await api(apiClub('/halls'));
+                close();
+                renderMap();
+            } catch (error) {
+                deleteButton.disabled = false;
+                notify(error);
+            }
+        });
+    }
+
+    $('zoneform').onsubmit = async e => {
+        e.preventDefault();
+
+        let payload = {
+            name: $('zonename').value,
+            x: Number($('zonex').value),
+            y: Number($('zoney').value),
+            width: Number($('zonew').value),
+            height: Number($('zoneh').value)
+        };
+
+        try {
+            await api(apiClub(`/zones${h ? '/' + h.id : ''}`), {
+                method: h ? 'PUT' : 'POST',
+                body: JSON.stringify(payload)
+            });
+
+            halls = await api(apiClub('/halls'));
+            close();
+            renderMap();
+        } catch (e) {
+            notify(e);
+        }
+    };
+}
+
+
+function renderSearch(){$('page').innerHTML=`<div class="heading"><h1>Поиск банкетов</h1></div><section class="panel"><form id="searchform" class="searchgrid"><div><label>Имя клиента</label><input id="searchname" placeholder="Имя"></div><div><label>Телефон</label><input id="searchphone" placeholder="Номер телефона"></div><div><label>Дата</label><input id="searchdate" type="date"></div><button class="primary search-submit-arrow" type="submit">Найти</button></form><div id="results" style="margin-top:22px" class="hint">Введите данные для поиска или нажмите «Найти», чтобы увидеть последние бронирования.</div></section>`;$('searchform').onsubmit=async e=>{e.preventDefault();try{let q=new URLSearchParams();if($('searchname').value.trim())q.set('name',$('searchname').value.trim());if($('searchphone').value.trim())q.set('phone',$('searchphone').value.trim());if($('searchdate').value)q.set('date',$('searchdate').value);let list=await api(apiClub('/search?'+q));$('results').innerHTML=list.length?list.map(b=>`<button class="booking" data-search-booking="${b.id}"><div class="bookingtop"><strong>${esc(b.clientName)} · ${niceDate(b.startsAt.slice(0,10))}</strong><span class="pill">${status(b)}</span></div><p>${fmt(b.startsAt)} · ${esc(halls.find(h=>h.id===b.hallId)?.name||'Зона')} · ${esc(b.phone||'Без телефона')}</p></button>`).join(''):'<div class="emptymsg">Банкеты не найдены</div>';document.querySelectorAll('[data-search-booking]').forEach(el=>el.onclick=()=>openDetail(Number(el.dataset.searchBooking)))}catch(e){notify(e)}}}
+function applyClubTheme(){document.documentElement.style.removeProperty('--bg');document.documentElement.style.removeProperty('--accent');document.documentElement.style.removeProperty('--sidebar')}
+async function renderDashboard(){if(!dev())return;let c=currentDashboard();const opts=[['showStats','Статистика банкетов'],['showRevenue','Выручка'],['showZones','Свободные зоны'],['showUpcoming','Ближайшие банкеты'],['showReminders','Напоминания']];$('page').innerHTML=`<div class="heading"><div><h1>Настройка главного экрана</h1><p class="muted">${esc(c.name||'Клуб')} · Только для разработчика</p></div></div><section class="panel settings-card"><h3>Виджеты главной страницы</h3><p class="muted">Календарь, поиск и расписание дня всегда доступны. Отключение виджета не удаляет данные.</p>${opts.map(([key,label])=>`<label class="setting-toggle"><span>${label}</span><input type="checkbox" data-widget="${key}" ${c[key]!==false?'checked':''}></label>`).join('')}<div class="actions"><button class="secondary" id="resetwidgets">Восстановить стандартный вид</button><button class="primary" id="savewidgets">Сохранить настройки</button></div></section>`;const save=async reset=>{let values=Object.fromEntries(opts.map(([key])=>[key,reset?true:document.querySelector(`[data-widget="${key}"]`).checked]));try{let updated=await api(`/clubs/${clubId}/dashboard`,{method:'PUT',body:JSON.stringify(values)});clubs=clubs.map(x=>x.id===clubId?updated:x);renderDashboard()}catch(e){notify(e)}};$('savewidgets').onclick=()=>save(false);$('resetwidgets').onclick=()=>save(true)}
+async function renderClubs(){
+ if(!dev())return navigate('calendar');
+ const version=++pageRenderVersion;
+ const accounts=await api('/accounts');
+ if(version!==pageRenderVersion||(page!=='clubs'&&page!=='accounts'))return;
+ const active=activeClubs(),archived=clubs.filter(c=>c.archived);
+ $('page').innerHTML=`<div class="heading"><div><h1>Менеджер клубов</h1><p class="muted">Управление клубами и сотрудниками Rafi</p></div></div>
+ <section class="panel settings-card"><h3>Создать клуб</h3><form id="newclubform" class="catalog-search"><input id="newclubname" required maxlength="120" placeholder="Название нового клуба"><button class="primary">+ Добавить клуб</button></form></section>
+ <h2 style="margin:20px 0 14px">Действующие клубы (${active.length})</h2>
+ <div class="manager-grid">${active.map(c=>`<section class="panel club-manager-card"><div class="row"><div><h3>${esc(c.name)}</h3><p class="muted">${accounts.filter(a=>(a.clubIds||[a.clubId]).includes(c.id)&&a.role==='ADMIN').length} администраторов</p></div><button class="secondary" data-renameclub="${c.id}">Изменить</button></div><div class="manager-actions"><button class="secondary" data-selectclub="${c.id}">Выбрать клуб</button><button class="secondary" data-clubadmins="${c.id}">Администраторы</button><button class="secondary" data-archiveclub="${c.id}">В архив</button><button class="ghost" data-deleteclub="${c.id}">Удалить</button></div></section>`).join('')||'<p class="muted">Действующих клубов пока нет.</p>'}</div>
+ <section class="panel settings-card" id="clubadmins"><h3>Администраторы</h3><p class="muted">Выбери действующий клуб, чтобы посмотреть сотрудников.</p></section>
+ <section class="panel settings-card"><div class="row"><h2>Архив клубов (${archived.length})</h2></div><p class="muted">История и настройки архивных клубов сохраняются. Администраторы не могут работать в них до восстановления.</p>${archived.map(c=>`<div class="staff-row"><div><strong>${esc(c.name)}</strong><div class="muted">В архиве · № ${c.id}</div></div><button class="secondary" data-restoreclub="${c.id}">Восстановить</button></div>`).join('')||'<p class="muted">Архив пуст.</p>'}</section>`;
+ $('newclubform').onsubmit=async e=>{e.preventDefault();try{let c=await api('/clubs',{method:'POST',body:JSON.stringify({name:capitaliseSentences($('newclubname').value)})});await refreshClubs(c.id)}catch(e){notify(e)}};
+ document.querySelectorAll('[data-selectclub]').forEach(el=>el.onclick=async()=>{clubId=Number(el.dataset.selectclub);$('club').value=String(clubId);await reload();if(page==='clubs'||page==='accounts')await renderClubs()});
+ document.querySelectorAll('[data-renameclub]').forEach(el=>el.onclick=async()=>{let c=clubs.find(x=>x.id===Number(el.dataset.renameclub));let name=await rafiPrompt('Название клуба',c.name);if(!name?.trim())return;try{await api(`/clubs/${c.id}`,{method:'PUT',body:JSON.stringify({name:capitaliseSentences(name)})});await refreshClubs()}catch(e){notify(e)}});
+ document.querySelectorAll('[data-clubadmins]').forEach(el=>el.onclick=()=>showClubAdmins(Number(el.dataset.clubadmins),accounts));
+}
+// Постоянный обработчик: кнопки не теряют действие после обновления HTML.
+// Отдельные формы и обработчики зон оставлены без изменений.
+$('page').addEventListener('click',async event=>{
+ const button=event.target.closest('button[data-delete-item],button[data-archiveclub],button[data-restoreclub],button[data-deleteclub]');
+ if(!button||!$('page').contains(button)||button.disabled)return;
+ const id=Number(button.dataset.deleteItem||button.dataset.archiveclub||button.dataset.restoreclub||button.dataset.deleteclub);
+ if(!Number.isSafeInteger(id)||id<=0)return;
+ const isCatalog=button.hasAttribute('data-delete-item');
+ const action=button.hasAttribute('data-archiveclub')?'archive':button.hasAttribute('data-restoreclub')?'restore':'delete';
+ const c=isCatalog?null:clubs.find(x=>x.id===id);
+ if(!isCatalog&&!c)return notify('Клуб не найден. Обновите список.');
+ if(isCatalog){
+  if(!canEditCatalog()||!['menu','services'].includes(page))return;
+  if(!await rafiConfirm('Удалить позицию из каталога? Уже добавленные в банкеты позиции останутся в заказах.'))return;
+ }else{
+  if(!dev())return;
+  if(action==='archive'&&!await rafiConfirm(`Перенести клуб «${c.name}» в архив? Данные сохранятся, доступ администраторов будет приостановлен.`))return;
+  if(action==='restore'&&!await rafiConfirm(`Восстановить клуб «${c.name}»?`))return;
+  if(action==='delete'){
+   if(!await rafiConfirm(`Убрать клуб «${c.name}»? Пустой клуб удалится, клуб с данными перейдёт в архив.`))return;
+   const enteredName=await rafiPrompt('Для подтверждения введи название клуба: '+c.name);
+   if(enteredName===null)return;
+   if(enteredName.trim()!==c.name.trim())return rafiNotice('Название клуба не совпадает. Действие отменено.');
+  }
+ }
+ const requestedClub=clubId,requestedPage=page;
+ button.disabled=true;
+ try{
+  if(isCatalog){
+   const kind=requestedPage==='menu'?'MENU':'SERVICE';
+   await api(`/clubs/${requestedClub}/catalog/${kind}/${id}`,{method:'DELETE'});
+   if(clubId===requestedClub&&page===requestedPage)await renderCatalog(kind);
+  }else{
+   const result=await api(`/clubs/${id}${action==='delete'?'':'/'+action}`,{method:action==='delete'?'DELETE':'PATCH'});
+   await refreshClubs();
+   if(action==='delete')rafiNotice(result?.action==='deleted'?'Клуб удалён.':'Клуб перенесён в архив. История сохранена.');
+  }
+ }catch(error){notify(error)}finally{if(button.isConnected)button.disabled=false}
+});
+function showClubAdmins(id,accounts){let c=clubs.find(c=>c.id===id),list=accounts.filter(a=>(a.clubIds||[a.clubId]).includes(id)&&a.role==='ADMIN');$('clubadmins').innerHTML=`<div class="row"><h3>Администраторы · ${esc(c.name)}</h3><button class="primary" id="addadmin">+ Администратор</button></div>${list.length?list.map(a=>`<div class="staff-row"><div><strong>${esc(a.displayName||a.username)}</strong><div class="muted">${esc(a.phone||'Телефон не указан')} · ${esc(a.username)} · ${a.enabled?'Активен':'Отключён'}</div></div><div class="row"><button class="secondary" data-editadmin="${a.id}">Изменить</button><button class="ghost" data-deleteadmin="${a.id}">Удалить</button></div></div>`).join(''):'<p class="muted">Пока нет администраторов</p>'}`;$('addadmin').onclick=()=>adminForm(id,null);document.querySelectorAll('[data-editadmin]').forEach(el=>el.onclick=()=>adminForm(id,list.find(a=>a.id===Number(el.dataset.editadmin))));document.querySelectorAll('[data-deleteadmin]').forEach(el=>el.onclick=async()=>{if(!await rafiConfirm('Удалить администратора? История авторства банкетов сохранится.'))return;try{await api(`/accounts/${el.dataset.deleteadmin}`,{method:'DELETE'});renderClubs()}catch(e){notify(e)}})}
+function adminForm(club,account){modal(account?'Редактировать администратора':'Создать администратора',`<form id="adminform"><label>Имя сотрудника</label><input id="staffname" maxlength="120" value="${esc(account?.displayName||'')}" required><label>Телефон</label><input id="staffphone" value="${esc(account?.phone||'')}"><label>Логин</label><input id="stafflogin" value="${esc(account?.username||'')}" required pattern="[a-zA-Z0-9_.-]{3,40}"><label>${account?'Новый пароль (оставь пустым, если менять не нужно)':'Пароль (от 8 символов)'}</label><input id="staffpass" type="password" minlength="8" ${account?'':'required'}><label>Клуб</label><select id="staffclub">${activeClubs().map(c=>`<option value="${c.id}" ${c.id===(account?.clubId||club)?'selected':''}>${esc(c.name)}</option>`).join('')}</select><label>Доступные филиалы (можно выбрать несколько)</label><div class="branch-access">${activeClubs().map(c=>`<label class="setting-toggle"><span>${esc(c.name)}</span><input type="checkbox" data-branch="${c.id}" ${(account?.clubIds||[club]).includes(c.id)?'checked':''}></label>`).join('')}</div>${account?`<label class="setting-toggle">Учётная запись активна <input id="staffenabled" type="checkbox" ${account.enabled?'checked':''}></label>`:''}<div class="actions"><button type="button" class="secondary" id="staffcancel">Отмена</button><button class="primary">Сохранить</button></div></form>`);$('staffcancel').onclick=close;$('adminform').onsubmit=async e=>{e.preventDefault();let payload={username:$('stafflogin').value,displayName:capitaliseSentences($('staffname').value),phone:$('staffphone').value,clubId:Number($('staffclub').value),clubIds:[...document.querySelectorAll('[data-branch]:checked')].map(el=>Number(el.dataset.branch))};if(!payload.clubIds.includes(payload.clubId))payload.clubIds.push(payload.clubId);if($('staffpass').value)payload.password=$('staffpass').value;if(account)payload.enabled=$('staffenabled').checked;try{await api(account?`/accounts/${account.id}`:'/accounts',{method:account?'PUT':'POST',body:JSON.stringify(payload)});close();renderClubs()}catch(e){notify(e)}}}
+$('club').onchange=async()=>{pageRenderVersion++;clubId=Number($('club').value);filter='all';syncMobileClubPicker();await reload()};$('theme').onclick=()=>{let dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';localStorage.setItem('kidsclub-theme',dark?'dark':'light');$('theme').textContent=dark?'☀':'☾';syncMobileThemeSwitch();applyClubTheme()};$('close').onclick=tryClose;$('overlay').onclick=e=>{if(e.target===$('overlay'))tryClose()};document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>navigate(b.dataset.page));$('homeLogo').onclick=e=>{e.preventDefault();navigate('calendar')};$('globalAdd').onclick=()=>form(null);$('mobiletoggle').onclick=()=>$('sidebar').classList.toggle('open');document.querySelectorAll('[data-mobile-page]').forEach(b=>b.onclick=()=>{if(b.dataset.mobilePage===page){window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});return;}navigate(b.dataset.mobilePage).then(()=>window.scrollTo({top:0,behavior:'instant'}));});const backToTop=$('mobileBackToTop');const updateBackToTop=()=>backToTop.classList.toggle('is-visible',window.innerWidth<=700&&window.scrollY>350);backToTop.onclick=()=>window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});window.addEventListener('scroll',updateBackToTop,{passive:true});window.addEventListener('resize',updateBackToTop,{passive:true});updateBackToTop();$('mobileMore').onclick=()=>$('sidebar').classList.toggle('open');$('mobileBrand').onclick=e=>{e.preventDefault();navigate('calendar')};$('mobilePassword').onclick=()=>{ $('sidebar').classList.remove('open');passwordForm()};$('mobileAccountToggle').onclick=()=>{const box=$('mobileAccountActions');box.hidden=!box.hidden;$('mobileAccountToggle').setAttribute('aria-expanded',String(!box.hidden))};$('mobileThemeSwitch').onclick=()=>$('theme').click();const searchClear=$('globalSearchClear');const searchField=$('globalSearch');searchField.addEventListener('input',()=>{searchClear.hidden=!searchField.value});searchClear.onclick=()=>{searchField.value='';searchField.dispatchEvent(new Event('input',{bubbles:true}));searchField.focus()};$('mobileClubTrigger').onclick=()=>{const list=$('mobileClubList');const open=list.hidden;list.hidden=!open;$('mobileClubTrigger').setAttribute('aria-expanded',String(open))};$('mobileLogout').onclick=()=>$('desktopLogoutForm')?.requestSubmit();
+document.addEventListener('pointerdown',e=>{if(!$('mobileClubPicker').contains(e.target))closeMobileClubPicker()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileClubPicker()});document.addEventListener('pointerdown',e=>{if(!$('sidebar').classList.contains('open'))return;if($('sidebar').contains(e.target)||$('mobiletoggle').contains(e.target)||$('mobileMore').contains(e.target))return;$('sidebar').classList.remove('open')});
+new MutationObserver(()=>enhanceRafiDates(document)).observe(document.body,{childList:true,subtree:true});enhanceRafiDates(document);document.addEventListener('keydown',e=>{if(e.key==='Escape')$('sidebar').classList.remove('open')});$('globalSearchForm').onsubmit=e=>{e.preventDefault();submitGlobalSearch()};document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>$('sidebar').classList.remove('open')));window.rafiStart=()=>init().catch(notify);
+</script><script src="./rafi-v3.js?v=2.1.0-theme16"></script><script src="./admin-controls5.js?v=4"></script><script src="./ui-polish7.js?v=2"></script><script src="./theme16.js?v=1"></script></body></html>

@@ -1,0 +1,13 @@
+/* Shared look and save feedback for all application forms. */
+(()=>{'use strict';
+let pending=null;
+document.addEventListener('submit',event=>{const form=event.target;if(/search/i.test(form.id))return;const button=event.submitter||form.querySelector('button[type=submit]');if(!(button instanceof HTMLButtonElement))return;const old=button.textContent;pending={button,old,form,used:false};const context=pending;button.textContent='Сохраняем…';button.setAttribute('aria-busy','true');button.disabled=true;context.timer=setTimeout(()=>{if(!context.used){button.textContent=old;button.disabled=false;button.removeAttribute('aria-busy');if(pending===context)pending=null;}},1200);},true);
+const previousApi=api;
+api=async function(url,options={}){const method=(options.method||'GET').toUpperCase(),mutation=['POST','PUT','PATCH','DELETE'].includes(method)&&!url.includes('/recommend'),context=mutation?pending:null;if(context){pending=null;context.used=true;clearTimeout(context.timer);}try{const result=await previousApi(url,options);if(context){const {button,old}=context;button.textContent='Сохранено';button.removeAttribute('aria-busy');button.classList.add('v3-saved-button');notify('Сохранено');setTimeout(()=>{if(button.isConnected){button.textContent=old;button.disabled=false;button.classList.remove('v3-saved-button');}},1800);}else if(mutation&&method!=='DELETE'&&/\/(categories|catalog)(?:\/|\?|$)/.test(url))notify('Сохранено');return result;}catch(error){if(context){context.button.textContent=context.old;context.button.disabled=false;context.button.removeAttribute('aria-busy');}throw error;}};
+let scheduled=false;
+function enhance(){scheduled=false;enhanceRafiSelects(document);for(const row of document.querySelectorAll('.v3-hours-row')){const closed=row.querySelector('input[type=checkbox]');row.classList.toggle('closed',closed.checked);for(const button of row.querySelectorAll('.v3-time-wheel-trigger'))button.disabled=closed.checked;}}
+new MutationObserver(()=>{if(!scheduled){scheduled=true;requestAnimationFrame(enhance);}}).observe(document.body,{childList:true,subtree:true});enhance();
+document.addEventListener('change',e=>{if(e.target.matches('#v3-home-settings input[role=switch]'))e.target.setAttribute('aria-checked',String(e.target.checked));if(e.target.matches('.v3-hours-row input[type=checkbox]'))enhance();});
+// Older modal forms with native time fields share the wheel too.
+document.addEventListener('click',e=>{const trigger=e.target.closest('.rafi-time-trigger');if(trigger){const input=trigger.closest('.rafi-time-field')?.querySelector('input');const replacement=input?.parentElement.querySelector('.v3-time-wheel-trigger');if(replacement){e.preventDefault();e.stopImmediatePropagation();replacement.click();}}},true);
+})();
