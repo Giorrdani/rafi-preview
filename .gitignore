@@ -1,0 +1,12 @@
+target/
+.idea/
+*.iml
+data/
+*.mv.db
+*.trace.db
+
+# Private backup artifacts and credentials
+backups/
+*.dump
+*.backup
+backup-config.local.json
