@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Rafi: жираф и календарь">
+<path fill="#F0A500" d="M13 109C34 87 37 63 45 33L61 33 77 54 77 109Z"/>
+<path fill="#1B1E24" d="M41 47 54 37 54 74 38 86 28 99C35 81 38 63 41 47ZM60 74 77 83 77 109 52 109Z"/>
+<path fill="#F0A500" d="M45 34C31 29 23 19 21 12 39 12 47 19 51 30Z"/>
+<path fill="#1B1E24" d="M48 32 53 16 58 17 59 32 64 15 69 16 71 33 92 48 88 58 72 58 61 46 53 42Z"/>
+<circle cx="55" cy="12" r="6" fill="#1B1E24"/><circle cx="68" cy="11" r="6" fill="#1B1E24"/>
+<rect x="69" y="57" width="52" height="58" rx="8" fill="#1B1E24"/>
+<rect x="72" y="60" width="46" height="52" rx="6" fill="#fff"/>
+<path d="M78 60h34a6 6 0 0 1 6 6v10H72V66a6 6 0 0 1 6-6" fill="#F0A500"/>
+<path d="M83 55v11m24-11v11" stroke="#1B1E24" stroke-width="5" stroke-linecap="round"/>
+<g fill="#DCE0E3"><rect x="79" y="83" width="10" height="10" rx="2"/><rect x="93" y="83" width="10" height="10" rx="2"/><rect x="107" y="83" width="7" height="10" rx="2"/><rect x="79" y="98" width="10" height="9" rx="2"/><rect x="93" y="98" width="10" height="9" rx="2"/><rect x="107" y="98" width="7" height="9" rx="2"/></g>
+<rect x="93" y="83" width="10" height="10" rx="2" fill="#F0A500"/>
+</svg>
